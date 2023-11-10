@@ -9,6 +9,17 @@ public struct Rowcol {
         row = r;
         column = c;
     }
+
+    public static Rowcol operator -(Rowcol rc) => new Rowcol(-rc.row, -rc.column);
+
+    public static Rowcol operator+(Rowcol rc1, Rowcol rc2)
+        => new Rowcol(rc1.row + rc2.row, rc1.column + rc2.column);
+
+    public static Rowcol operator-(Rowcol rc1, Rowcol rc2) => rc1 + (-rc2);
+
+    public override string ToString() {
+        return "(" + row.ToString() + ", " + column.ToString() + ")";
+    }
 }
 
 public class CustomGrid<T> where T : class {
@@ -61,6 +72,10 @@ public class CustomGrid<T> where T : class {
         float x = column * _offsetX + _offsetX * 0.5f;
         float y = row * _offsetY + _offsetY * 0.5f;
         return (Vector3)OriginPosition + new Vector3(x, -y);
+    }
+
+    public Vector3 RowcolToPointCenter(Rowcol rowcol) {
+        return RowcolToPointCenter(rowcol.row, rowcol.column);
     }
 
     public Rowcol PointToRowcol(Vector2 position) {

@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class GridControl : MonoBehaviour {
     [SerializeField] private Vector2 _gridSize;
-    private CustomGrid<GameObject> _grid;
+    private CustomGrid<CharacterTest> _grid;
     private void Awake() {
-        _grid = new CustomGrid<GameObject>(4, 3, Vector3.zero, _gridSize.x, _gridSize.y);
+        _grid = new CustomGrid<CharacterTest>(4, 3, Vector3.zero, _gridSize.x, _gridSize.y);
+    }
+
+    public bool IsValidRowcol(Rowcol rowcol) {
+        return _grid.IsValidRowcol(rowcol);
+    }
+
+    public Vector3 RowcolToPosition(Rowcol rc) {
+        return _grid.RowcolToPointCenter(rc);
+    }
+
+    public Vector3 RowcolToPosition(int row, int column) {
+        return _grid.RowcolToPointCenter(row, column);
     }
 
     public void InitializeGrid(GameObject prefab) {

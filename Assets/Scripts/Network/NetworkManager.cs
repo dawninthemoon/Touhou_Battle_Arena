@@ -106,6 +106,13 @@ namespace Network {
         public override void OnPlayerEnteredRoom(Player newPlayer) {
             if (PhotonNetwork.IsMasterClient) {
                 if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers) {
+                    int id = Random.Range(0, 2);
+                    int opponentID = 1 - id;
+
+                    Player otherPlayer = PhotonNetwork.PlayerListOthers[0];
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { {"ID", id}});
+                    otherPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { {"ID", opponentID}});
+
                     PhotonNetwork.LoadLevel("GameScene");
                 }
             }

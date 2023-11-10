@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterTest : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+public class CharacterTest : MonoBehaviour {
+    public Rowcol Curr {
+        get;
+        private set;
+    }
+    
+    private void Awake() {
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void MoveImmediate(Vector3 pos, Rowcol to) {
+        transform.position = pos;
+        Curr = to;
     }
 }

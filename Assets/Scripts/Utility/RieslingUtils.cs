@@ -91,6 +91,19 @@ namespace RieslingUtils {
         }
     }
 
+    public static class ExKey {
+        public static KeyCode GetPressedKey() {
+            KeyCode result = KeyCode.None;
+            for (KeyCode key = KeyCode.None; key < KeyCode.Joystick8Button19; key++) {
+                if (Input.GetKeyDown(key)) {
+                    result = key;
+                    break;
+                }
+            }
+            return result;
+        }
+    }
+
     public static class ExString {
         private static readonly string RegexContainsPrefix = "^.*(";
         private static readonly string RegexContainsSuffix = ").*";
