@@ -8,10 +8,11 @@ namespace Moves {
         public string moveID;
         public string moveName;
         public int cost;
+        public int value;
         public string description;
         public bool isRelativeForCharacter;
-        public string[] commandID;
-        public Dictionary<string, string> variables;
+        public string[] commandName;
+        public Dictionary<string, string[]> variables;
     }
 
     public abstract class MoveBase {

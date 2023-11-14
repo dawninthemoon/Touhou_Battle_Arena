@@ -6,15 +6,16 @@ public class IsometricTest : MonoBehaviour {
     [SerializeField] private int _width, _height;
     [SerializeField] private float _ceilSize;
     private IsometricGrid<GameObject> _grid;
-    private void Start() {
+
+    private void Awake() {
         _grid = new IsometricGrid<GameObject>(_width, _height, Vector3.zero, _ceilSize);
+        MoveDataParser parser = new MoveDataParser();
+        AssetLoader.Instance.LoadAssetAsync<TextAsset>("MoveInfo", (op) => {
+            parser.Parse(op.Result.ToString());
+        });
     }
 
-    private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            Vector3 pos = RieslingUtils.ExMouse.GetMouseWorldPosition();
-            Debug.Log(_grid.PointToRowcol(pos));
-        }
+    private void Start() {
     }
 
     private void OnDrawGizmos() {
