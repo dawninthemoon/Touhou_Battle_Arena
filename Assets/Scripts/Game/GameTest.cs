@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using TMPro;
-
+/*
 public class GameTest : MonoBehaviour {
     [SerializeField] private GameObject _tilePrefab;
     [SerializeField] private CharacterTest _reimuPrefab, _marisaPrefab;
@@ -72,3 +72,4 @@ public class GameTest : MonoBehaviour {
         TurnPlayer = (TurnPlayer + 1) % 2;
     }
 }
+*/

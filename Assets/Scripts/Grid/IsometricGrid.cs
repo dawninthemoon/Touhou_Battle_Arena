@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
-/*
+
 public struct Rowcol {
     public int row;
     public int column;
@@ -22,7 +22,7 @@ public struct Rowcol {
         return "(" + row.ToString() + ", " + column.ToString() + ")";
     }
 }
-*/
+
 
 public class IsometricGrid<T> where T : class {
     public int Width { get; set; }
