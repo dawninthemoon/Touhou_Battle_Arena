@@ -10,6 +10,10 @@ namespace Commands {
     }
 
     public class BattleCommand {
-        
+        public class Damage : IBattleCommand {
+            public async UniTaskVoid Execute(ExecutionArea executionArea, string variable) {
+                await UniTask.Yield();
+            }
+        }
     }
 }
