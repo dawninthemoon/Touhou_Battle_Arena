@@ -70,6 +70,7 @@ public class IsometricGrid<T> where T : class {
     public Vector3 RowcolToPointCenter(int row, int column) {
         Vector3 newPosition = RowcolToPoint(row, column);
         newPosition.x += _ceilSize;
+        newPosition.z = column;
         return newPosition;
     }
 

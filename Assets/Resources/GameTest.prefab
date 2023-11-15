@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1701256963386017555}
   - component: {fileID: 5085301139697187635}
-  - component: {fileID: 8088617144309967723}
   - component: {fileID: 2921010262306481882}
   m_Layer: 0
   m_Name: GameTest
@@ -46,22 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b494eef76dc885942ab48aceea1e645c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tilePrefab: {fileID: 3739502933898496447, guid: 93e8f1bc54b9064418e527ab4755a291, type: 3}
-  _reimuPrefab: {fileID: 2547235440972161617, guid: 60845fcf575319b45a89bfb8f7258718, type: 3}
-  _marisaPrefab: {fileID: 5435719276892272653, guid: 4b96ad7c7493c4e449a2985a067742b8, type: 3}
---- !u!114 &8088617144309967723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 310584444339316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e425d9bd3c10d14a88688590f72a0da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gridSize: {x: 48, y: 36}
 --- !u!114 &2921010262306481882
 MonoBehaviour:
   m_ObjectHideFlags: 0

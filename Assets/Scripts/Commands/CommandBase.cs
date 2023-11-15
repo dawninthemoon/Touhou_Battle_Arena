@@ -6,12 +6,12 @@ using Moves;
 
 namespace Commands {
     public interface IBattleCommand {
-        UniTaskVoid Execute(ExecutionArea executionArea, string variable);
+        UniTaskVoid Execute(ExecutionArea executionArea, string[] variables);
     }
 
     public class BattleCommand {
         public class Damage : IBattleCommand {
-            public async UniTaskVoid Execute(ExecutionArea executionArea, string variable) {
+            public async UniTaskVoid Execute(ExecutionArea executionArea, string[] variables) {
                 await UniTask.Yield();
             }
         }

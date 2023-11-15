@@ -1,49 +1,52 @@
-{
-  "MoveInfo": {
-    "Move_ReimuMovementLeft": {
-      "moveName": "요괴 버스터",
-      "cost": 0,
-      "value": 15,
-      "description": null,
-      "isRelativeForCharacter": true,
-      "commands": "Movement(0,-1)",
-      "productionName": null
-    },
-    "Move_ReimuMovementRight": {
-      "moveName": null,
-      "cost": 0,
-      "value": 0,
-      "description": null,
-      "isRelativeForCharacter": true,
-      "commands": "Movement(0,1)",
-      "productionName": null
-    },
-    "Move_ReimuMovementUp": {
-      "moveName": null,
-      "cost": 0,
-      "value": 0,
-      "description": null,
-      "isRelativeForCharacter": true,
-      "commands": "Movement(-1,0)",
-      "productionName": null
-    },
-    "Move_ReimuMovementDown": {
-      "moveName": null,
-      "cost": 0,
-      "value": 0,
-      "description": null,
-      "isRelativeForCharacter": true,
-      "commands": "Movement(1,0)",
-      "productionName": null
-    },
-    "Move_ReimuBasicAttack": {
-      "moveName": "요괴 버스터",
-      "cost": 0,
-      "value": 15,
-      "description": null,
-      "isRelativeForCharacter": true,
-      "commands": "Damage(15)",
-      "productionName": null
-    }
+[
+  {
+    "MoveID": "Move_ReimuMovementLeft",
+    "MoveName": "요괴 버스터",
+    "Cost": 0,
+    "Value": 15,
+    "Description": null,
+    "IsRelativeForCharacter": true,
+    "Commands": "Movement(0,-1)",
+    "ProductionName": null
+  },
+  {
+    "MoveID": "Move_ReimuMovementRight",
+    "MoveName": null,
+    "Cost": 0,
+    "Value": 0,
+    "Description": null,
+    "IsRelativeForCharacter": true,
+    "Commands": "Movement(0,1)",
+    "ProductionName": null
+  },
+  {
+    "MoveID": "Move_ReimuMovementUp",
+    "MoveName": null,
+    "Cost": 0,
+    "Value": 0,
+    "Description": null,
+    "IsRelativeForCharacter": true,
+    "Commands": "Movement(-1,0)",
+    "ProductionName": null
+  },
+  {
+    "MoveID": "Move_ReimuMovementDown",
+    "MoveName": null,
+    "Cost": 0,
+    "Value": 0,
+    "Description": null,
+    "IsRelativeForCharacter": true,
+    "Commands": "Movement(1,0)",
+    "ProductionName": null
+  },
+  {
+    "MoveID": "Move_ReimuBasicAttack",
+    "MoveName": "요괴 버스터",
+    "Cost": 0,
+    "Value": 15,
+    "Description": null,
+    "IsRelativeForCharacter": true,
+    "Commands": "Damage(15)",
+    "ProductionName": null
   }
-}
+]

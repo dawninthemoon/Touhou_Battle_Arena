@@ -41,6 +41,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - MoveOpponentCharacter
   - MoveMyCharacter
+  - Func
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
