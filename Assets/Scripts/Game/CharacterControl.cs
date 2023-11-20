@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class CharacterControl : MonoBehaviour {
     [SerializeField] private GridControl _gridControl;
-    [SerializeField, Tooltip("Temp Option")] private GameObject _reimu;
+    [SerializeField, Tooltip("Temp Option")] private CharacterTest _reimuPrefab;
+    private CharacterTest _myCharacter;
 
     private void Awake() {
         
     }
 
     private void Start() {
-        _reimu = Instantiate(_reimu);
-        _reimu.gameObject.SetActive(false);
+        _myCharacter = Instantiate(_reimuPrefab);
+        _myCharacter.gameObject.SetActive(false);
     }
     
     public void PlaceMyCharacter(Rowcol rowcol) {
         Vector3 position = _gridControl.RowcolToPoint(rowcol);
         position.y += 12f;
-        _reimu.transform.position = position;
-        _reimu.gameObject.SetActive(true);
+        _myCharacter.MoveImmediate(position, rowcol);
+        _myCharacter.gameObject.SetActive(true);
     }
 }

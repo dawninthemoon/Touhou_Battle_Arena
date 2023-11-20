@@ -772,7 +772,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridControl: {fileID: 1897323670}
-  _reimu: {fileID: 7148874815608924592, guid: 60845fcf575319b45a89bfb8f7258718, type: 3}
+  _reimuPrefab: {fileID: 2547235440972161617, guid: 60845fcf575319b45a89bfb8f7258718, type: 3}
+--- !u!1 &1569922899
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1569922900}
+  - component: {fileID: 1569922901}
+  m_Layer: 0
+  m_Name: MoveExecuter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1569922900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569922899}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1569922901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569922899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd9c3c4855badd499b2b4c1ddb7ad3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1718080453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,8 +1192,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 105512505}
+  - {fileID: 846169998}
   - {fileID: 1897323671}
   - {fileID: 1380223866}
-  - {fileID: 846169998}
+  - {fileID: 1569922900}
   - {fileID: 229576133}
   - {fileID: 2071774513}
