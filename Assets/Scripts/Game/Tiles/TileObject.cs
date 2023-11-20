@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileObject : MonoBehaviour {
     private SpriteRenderer _renderer;
-    private static readonly string HighlightKey = "ApplyAmount";
+    private static readonly string HighlightKey = "_ApplyAmount";
 
     private void Awake() {
         _renderer = GetComponent<SpriteRenderer>();

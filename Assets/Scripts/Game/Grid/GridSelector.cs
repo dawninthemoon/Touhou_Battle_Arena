@@ -5,22 +5,26 @@ using RieslingUtils;
 using Cysharp.Threading.Tasks;
 
 public class GridSelector : MonoBehaviour {
-    [SerializeField] private GameObject _gridPointer;
     [SerializeField] private GridControl _gridControl;
+    private GameObject _gridMarker;
     private bool _isSelecting;
 
-    private void Start() {
-        
+    private void Awake() {
+        AssetLoader.Instance.LoadAssetAsync<GameObject>("GridMarker", (op) => {
+            _gridMarker = Instantiate(op.Result);
+        });
     }
 
     private void Update() {
         if (!_isSelecting) {
             return;
         }
-        _gridPointer.transform.position = GetGridPosition();
+        _gridMarker.transform.position = GetGridPosition();
     }
 
     public async UniTask<Rowcol> SelectGrid() {
+        await UniTask.WaitUntil(() => _gridMarker);
+
         SetActive(true);
 
         await UniTask.WaitUntil(() => Input.GetMouseButtonDown(0));
@@ -36,6 +40,6 @@ public class GridSelector : MonoBehaviour {
 
     private void SetActive(bool active) {
         _isSelecting = active;
-        _gridPointer.gameObject.SetActive(active);
+        _gridMarker.gameObject.SetActive(active);
     }
 }

@@ -1,22 +1,24 @@
 [
   {
     "MoveID": "Move_Movement",
+    "CharacterID": null,
     "MoveName": "기초 이동",
     "Cost": 0,
-    "Value": 0,
+    "Value": 15,
     "Description": null,
     "IsRelativeForCharacter": true,
-    "Commands": "",
-    "ProductionName": null
+    "Variables": null,
+    "ButtonIndex": -1
   },
   {
     "MoveID": "Move_ReimuBasicAttack",
+    "CharacterID": "Reimu",
     "MoveName": "요괴 버스터",
     "Cost": 0,
     "Value": 15,
     "Description": null,
     "IsRelativeForCharacter": true,
-    "Commands": "Damage(15)",
-    "ProductionName": null
+    "Variables": "damage(15)",
+    "ButtonIndex": 0
   }
 ]

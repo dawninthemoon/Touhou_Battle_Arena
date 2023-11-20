@@ -6,6 +6,7 @@ public class CharacterControl : MonoBehaviour {
     [SerializeField] private GridControl _gridControl;
     [SerializeField, Tooltip("Temp Option")] private CharacterTest _reimuPrefab;
     private CharacterTest _myCharacter;
+    public Rowcol MyCharacterRowcol { get { return _myCharacter.Curr; } }
 
     private void Awake() {
         

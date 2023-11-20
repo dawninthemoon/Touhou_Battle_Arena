@@ -43,7 +43,7 @@ public class GridControl : MonoBehaviour {
 
     public void HighlightTileObject(Rowcol rowcol) {
         TileObject tileObj = _tileGrid.GetElement(rowcol);
-        tileObj.HighlightSelf();
+        tileObj?.HighlightSelf();
     }
 
     private void OnDrawGizmos() {
