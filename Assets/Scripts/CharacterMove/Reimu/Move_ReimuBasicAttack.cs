@@ -29,5 +29,12 @@ namespace Moves {
             _executionAreas[3].Add(new Rowcol(1, -1));
             _executionAreas[3].Add(new Rowcol(0, -1)); 
         }
+
+        public void Execute(int areaIndex) {
+            ExecutionArea area = _executionAreas[areaIndex];
+            foreach (Rowcol rc in area.Rowcols) {
+                
+            }
+        }
     }
 }
