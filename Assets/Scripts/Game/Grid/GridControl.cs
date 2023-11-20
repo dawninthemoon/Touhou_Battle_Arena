@@ -33,6 +33,14 @@ public class GridControl : MonoBehaviour {
         return _tileGrid.RowcolToPointCenter(rc);
     }
 
+    public Rowcol PointToRowcol(Vector3 position) {
+        return _tileGrid.PointToRowcol(position);
+    }
+
+    public Vector3 RowcolToPoint(Rowcol rowcol) {
+        return _tileGrid.RowcolToPointCenter(rowcol);
+    }
+
     private void OnDrawGizmos() {
         if (_tileGrid == null) {
             _tileGrid = new IsometricGrid<TileObject>(_width, _height, _gridOrigin, _ceilSize);

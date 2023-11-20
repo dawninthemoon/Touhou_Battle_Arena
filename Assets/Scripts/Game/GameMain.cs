@@ -5,8 +5,11 @@ using Photon.Pun;
 using MSLIMA.Serializer;
 
 public class GameMain : MonoBehaviour {
+    private PlayerMoveReceiver _playerMoveReceiver;
+
     private void Awake() {
         Serializer.RegisterCustomType<Moves.MoveConfig>((byte)'A');
-        PhotonNetwork.Instantiate("PlayerMoveReciver", Vector3.zero, Quaternion.identity);
+        var reciver = PhotonNetwork.Instantiate("PlayerMoveReciver", Vector3.zero, Quaternion.identity);
+        _playerMoveReceiver = reciver.GetComponent<PlayerMoveReceiver>();
     }
 }
