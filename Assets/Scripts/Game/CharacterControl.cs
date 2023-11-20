@@ -22,4 +22,19 @@ public class CharacterControl : MonoBehaviour {
         _myCharacter.MoveImmediate(position, rowcol);
         _myCharacter.gameObject.SetActive(true);
     }
+
+    public void PlaceCharacter(TeamColor player, Rowcol rowcol) {
+        Vector3 position = _gridControl.RowcolToPoint(rowcol);
+        position.y += 12f;
+        _myCharacter.MoveImmediate(position, rowcol);
+        _myCharacter.gameObject.SetActive(true);
+    }
+
+    public void MoveCharacter(TeamColor player, Rowcol rowcol) {
+        Rowcol target = _myCharacter.Curr + rowcol;
+        Vector3 position = _gridControl.RowcolToPoint(target);
+        position.y += 12f;
+        _myCharacter.MoveImmediate(position, target);
+        _myCharacter.gameObject.SetActive(true);
+    }
 }

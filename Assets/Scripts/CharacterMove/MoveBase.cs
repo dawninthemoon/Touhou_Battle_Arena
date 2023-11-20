@@ -14,9 +14,9 @@ namespace Moves {
             _executionAreas = new List<ExecutionArea>();
         }
         public abstract void InitializeExecutionArea();
-        public List<ExecutionArea> GetExecutionArea(IsometricGrid<GameObject> grid) {
+        public List<ExecutionArea> GetExecutionArea() {
             return _executionAreas;
         }
-        public abstract void Execute(int areaIndex);
+        public abstract void Execute(TeamColor caster, int areaIndex, SharedData sharedData);
     }
 }

@@ -41,6 +41,11 @@ public class GridControl : MonoBehaviour {
         return _tileGrid.RowcolToPointCenter(rowcol);
     }
 
+    public void HighlightTileObject(Rowcol rowcol) {
+        TileObject tileObj = _tileGrid.GetElement(rowcol);
+        tileObj.HighlightSelf();
+    }
+
     private void OnDrawGizmos() {
         if (_tileGrid == null) {
             _tileGrid = new IsometricGrid<TileObject>(_width, _height, _gridOrigin, _ceilSize);

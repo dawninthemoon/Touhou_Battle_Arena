@@ -6,8 +6,13 @@ using System.Reflection;
 using System.Linq;
 
 public class MoveExecuter : MonoBehaviour {
+    [SerializeField] private GridControl _gridControl;
+    [SerializeField] private CharacterControl _characterControl;
+
     private Dictionary<string, MoveInfo> _moveInfoDictionary;
     private Dictionary<string, MoveBase> _moveInstanceDictionary;
+
+    private SharedData _sharedData;
 
     private void Awake() {
         MoveDataParser parser = new MoveDataParser();
@@ -23,12 +28,20 @@ public class MoveExecuter : MonoBehaviour {
                     .ToDictionary(type => type.Name, 
                                   type => System.Activator.CreateInstance(type, _moveInfoDictionary[type.Name]) as MoveBase);
         });
+
+        _sharedData = new SharedData(_gridControl, _characterControl);
     }
 
     public void Execute(string moveID, int areaIndex) {
+        TeamColor player = TeamColor.RED;
+        MoveBase instance = GetMoveInstance(moveID);
+        instance.Execute(player, areaIndex, _sharedData);
+    }
+
+    public MoveBase GetMoveInstance(string moveID) {
         if (!_moveInstanceDictionary.TryGetValue(moveID, out MoveBase instance)) {
             Debug.LogError("Move not exists");
         }
-        instance.Execute(areaIndex);
+        return instance;
     }
 }

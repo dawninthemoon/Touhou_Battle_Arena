@@ -607,6 +607,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &895166786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 895166787}
+  - component: {fileID: 895166788}
+  m_Layer: 0
+  m_Name: MoveSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &895166787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895166786}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &895166788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895166786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79eba1e3f490abf45bd78af5e7a3d592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gridControl: {fileID: 1897323670}
 --- !u!1 &912929244
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,6 +862,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd9c3c4855badd499b2b4c1ddb7ad3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gridControl: {fileID: 1897323670}
+  _characterControl: {fileID: 1380223867}
 --- !u!1 &1673060576
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,6 +893,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 428db68f46693a34b9e30f541f518ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _selector: {fileID: 0}
+  _executer: {fileID: 1569922901}
   _upArrow: {fileID: 912929248}
   _downArrow: {fileID: 1793531465}
   _rightArrow: {fileID: 754756952}
@@ -1248,6 +1297,7 @@ SceneRoots:
   - {fileID: 1897323671}
   - {fileID: 1380223866}
   - {fileID: 1569922900}
+  - {fileID: 895166787}
   - {fileID: 1673060578}
   - {fileID: 229576133}
   - {fileID: 2071774513}

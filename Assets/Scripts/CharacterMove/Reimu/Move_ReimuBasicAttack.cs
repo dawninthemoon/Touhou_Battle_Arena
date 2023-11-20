@@ -30,7 +30,7 @@ namespace Moves {
             _executionAreas[3].Add(new Rowcol(0, -1)); 
         }
 
-        public override void Execute(int areaIndex) {
+        public override void Execute(TeamColor caster, int areaIndex, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             foreach (Rowcol rc in area.Rowcols) {
             }
