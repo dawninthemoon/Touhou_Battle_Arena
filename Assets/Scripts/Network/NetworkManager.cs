@@ -106,12 +106,17 @@ namespace Network {
         public override void OnPlayerEnteredRoom(Player newPlayer) {
             if (PhotonNetwork.IsMasterClient) {
                 if (PhotonNetwork.CurrentRoom.PlayerCount == PhotonNetwork.CurrentRoom.MaxPlayers) {
-                    int id = Random.Range(0, 2);
-                    int opponentID = 1 - id;
+                    TeamColor color = ExTeamColor.GetRandomColor();
+                    TeamColor opponentColor = ExTeamColor.GetOpponentColor(color);
 
+                    string teamColorID = "TeamColor";
                     Player otherPlayer = PhotonNetwork.PlayerListOthers[0];
-                    PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { {"ID", id}});
-                    otherPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { {"ID", opponentID}});
+                    PhotonNetwork.LocalPlayer.SetCustomProperties(
+                        new ExitGames.Client.Photon.Hashtable { {teamColorID, color}}
+                    );
+                    otherPlayer.SetCustomProperties(
+                        new ExitGames.Client.Photon.Hashtable { {teamColorID, opponentColor}}
+                    );
 
                     PhotonNetwork.LoadLevel("GameScene");
                 }

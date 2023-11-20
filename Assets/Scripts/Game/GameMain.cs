@@ -5,6 +5,6 @@ using Photon.Pun;
 
 public class GameMain : MonoBehaviour {
     private void Awake() {
-        PhotonNetwork.Instantiate("GameTest", Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate("PlayerMoveReciver", Vector3.zero, Quaternion.identity);
     }
 }

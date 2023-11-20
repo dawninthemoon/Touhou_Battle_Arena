@@ -11,7 +11,7 @@ public class GameTest : MonoBehaviour {
 
     private void Awake() {
         _photonView = GetComponent<PhotonView>();
-        Serializer.RegisterCustomType<Moves.MoveInfo>((byte)'A');
+        Serializer.RegisterCustomType<Moves.MoveInfo>((byte)'B');
 
         _playerID = 0;
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey("ID")) {
@@ -19,13 +19,6 @@ public class GameTest : MonoBehaviour {
             if (!_photonView.IsMine) {
                 _playerID = 1 - _playerID;
             }
-        }
-
-        if (_photonView.IsMine) {
-            MoveDataParser parser = new MoveDataParser();
-            AssetLoader.Instance.LoadAssetAsync<TextAsset>("MoveInfo", (op) => {
-                _moves = parser.Parse(op.Result.ToString());
-            });
         }
     }
     
