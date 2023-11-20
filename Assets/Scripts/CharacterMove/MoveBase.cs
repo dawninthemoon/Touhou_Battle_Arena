@@ -17,5 +17,6 @@ namespace Moves {
         public List<ExecutionArea> GetExecutionArea(IsometricGrid<GameObject> grid) {
             return _executionAreas;
         }
+        public abstract void Execute(int areaIndex);
     }
 }

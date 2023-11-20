@@ -1,42 +1,12 @@
 [
   {
-    "MoveID": "Move_ReimuMovementLeft",
-    "MoveName": "요괴 버스터",
-    "Cost": 0,
-    "Value": 15,
-    "Description": null,
-    "IsRelativeForCharacter": true,
-    "Commands": "Movement(0,-1)",
-    "ProductionName": null
-  },
-  {
-    "MoveID": "Move_ReimuMovementRight",
-    "MoveName": null,
+    "MoveID": "Move_Movement",
+    "MoveName": "기초 이동",
     "Cost": 0,
     "Value": 0,
     "Description": null,
     "IsRelativeForCharacter": true,
-    "Commands": "Movement(0,1)",
-    "ProductionName": null
-  },
-  {
-    "MoveID": "Move_ReimuMovementUp",
-    "MoveName": null,
-    "Cost": 0,
-    "Value": 0,
-    "Description": null,
-    "IsRelativeForCharacter": true,
-    "Commands": "Movement(-1,0)",
-    "ProductionName": null
-  },
-  {
-    "MoveID": "Move_ReimuMovementDown",
-    "MoveName": null,
-    "Cost": 0,
-    "Value": 0,
-    "Description": null,
-    "IsRelativeForCharacter": true,
-    "Commands": "Movement(1,0)",
+    "Commands": "",
     "ProductionName": null
   },
   {
