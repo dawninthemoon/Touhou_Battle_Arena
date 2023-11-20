@@ -66,6 +66,18 @@ public class IsometricGrid<T> where T : class {
         return new Rowcol(row, col);
     }
 
+    public Rowcol PointToRowcolWithClamp(Vector2 position) {
+        position -= OriginPosition;
+
+        int row = Mathf.FloorToInt((position.x / _ceilSize - position.y / _ceilSize * 2f) / 2f);
+        int col = Mathf.FloorToInt((position.x / _ceilSize + position.y / _ceilSize * 2f) / 2f);
+
+        row = Mathf.Clamp(row, 0, Height - 1);
+        col = Mathf.Clamp(col, 0, Width - 1);
+
+        return new Rowcol(row, col);
+    }
+
     public bool IsValidRowcol(int row, int column) {
         return ((row >= 0) && (row < Height) && (column >= 0) && (column < Width));
     }
