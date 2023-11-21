@@ -13,7 +13,7 @@ public class MoveSelector : MonoBehaviour {
     List<ExecutionArea> _executionAreas;
     private int _selectedAreaIndex;
     private bool _isRelativeForCharacter;
-    private GameObject[] _markers;
+    private GameObject[] _markers; // TODO: 수정
 
     private void Awake() {
         AssetLoader.Instance.LoadAssetAsync<GameObject>("GridMarker", (op) => {
