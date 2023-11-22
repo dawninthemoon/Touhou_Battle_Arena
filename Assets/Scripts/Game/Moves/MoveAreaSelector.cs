@@ -7,13 +7,17 @@ using RieslingUtils;
 
 public class MoveAreaSelector : MonoBehaviour {
     [SerializeField] private GridControl _gridControl;
-    [SerializeField, Tooltip("Temp Option")] private CharacterControl _characterCtrl;
+    [SerializeField, Tooltip("Temp Options")] private GameObject _characterIllusionPrefab;
     private ObjectPool<GameObject> _gridMarkerPool;
     List<ExecutionArea> _executionAreas;
     private int _selectedAreaIndex;
     private bool _isRelativeForCharacter;
     private List<GameObject> _gridMarkers;
     private Rowcol _prevMouseRowcol;
+    private Rowcol _casterPosition;
+
+    // TODO: Remove this
+    private List<GameObject> _illusionsList = new List<GameObject>();
 
     private void Awake() {
         _gridMarkers = new List<GameObject>();
@@ -39,7 +43,7 @@ public class MoveAreaSelector : MonoBehaviour {
         if (!curr.Equals(_prevMouseRowcol)) {
             HideExecutionAreas(_executionAreas, _isRelativeForCharacter);
 
-            Rowcol target = _isRelativeForCharacter ? curr - _characterCtrl.MyCharacterRowcol : curr;
+            Rowcol target = _isRelativeForCharacter ? curr - _casterPosition : curr;
             if (_isRelativeForCharacter && !_executionAreas[_selectedAreaIndex].Contains(target)) {
                 int numOfAreas = _executionAreas.Count;
                 for (int i = 0; i < numOfAreas; ++i) {
@@ -76,7 +80,7 @@ public class MoveAreaSelector : MonoBehaviour {
         if (_executionAreas != null) {
             Rowcol curr = _gridControl.PointToRowcol(ExMouse.GetMouseWorldPosition());
             foreach (Rowcol rc in _executionAreas[_selectedAreaIndex].Rowcols) {
-                Rowcol target = _isRelativeForCharacter ? _characterCtrl.MyCharacterRowcol + rc : rc + curr;
+                Rowcol target = _isRelativeForCharacter ? _casterPosition + rc : rc + curr;
                 _gridMarkers[t].transform.position = _gridControl.RowcolToPoint(target);
                 _gridMarkers[t].SetActive(_gridControl.IsValidRowcol(target));
                 ++t;
@@ -84,11 +88,27 @@ public class MoveAreaSelector : MonoBehaviour {
         }
     }
 
-    public async UniTask<int> SelectExecutionArea(List<ExecutionArea> executionAreas, bool isRelativeForCharacter) {
+    public void AddCharacterIllusion(Rowcol rowcol) {
+        Vector3 position = _gridControl.RowcolToPoint(rowcol);
+        position.y += 12f;
+        GameObject illusion = Instantiate(_characterIllusionPrefab, position, Quaternion.identity);
+        _illusionsList.Add(illusion);
+    }
+
+    public void RemoveAllIllusions() {
+        for (int i = 0; i < _illusionsList.Count; ++i) {
+            var obj = _illusionsList[i];
+            _illusionsList.RemoveAt(i--);
+            DestroyImmediate(obj);
+        }
+    }
+
+    public async UniTask<int> SelectExecutionArea(List<ExecutionArea> executionAreas, bool isRelativeForCharacter, Rowcol casterPos) {
         _selectedAreaIndex = 0;
         _executionAreas = executionAreas;
         _isRelativeForCharacter = isRelativeForCharacter;
         _prevMouseRowcol = _gridControl.PointToRowcol(ExMouse.GetMouseWorldPosition());
+        _casterPosition = casterPos;
 
         UpdateGridMarkers();
         ShowExecutionAreas(executionAreas, isRelativeForCharacter);
@@ -107,7 +127,7 @@ public class MoveAreaSelector : MonoBehaviour {
         Rowcol curr = _gridControl.PointToRowcol(ExMouse.GetMouseWorldPosition());
         for (int i = 0; i < numOfAreas; ++i) {
             foreach (Rowcol rc in executionAreas[i].Rowcols) {
-                Rowcol target = isRelativeForCharacter ? _characterCtrl.MyCharacterRowcol + rc : rc + curr;
+                Rowcol target = isRelativeForCharacter ? _casterPosition + rc : rc + curr;
 
                 _gridControl.HighlightTile(target);
                 _gridControl.HighlightObject(target);
@@ -119,7 +139,7 @@ public class MoveAreaSelector : MonoBehaviour {
         int numOfAreas = executionAreas.Count;
         for (int i = 0; i < numOfAreas; ++i) {
             foreach (Rowcol rc in executionAreas[i].Rowcols) {
-                Rowcol target = isRelativeForCharacter ? _characterCtrl.MyCharacterRowcol + rc : rc + _prevMouseRowcol;
+                Rowcol target = isRelativeForCharacter ? _casterPosition + rc : rc + _prevMouseRowcol;
                 _gridControl.RemoveHighlightTile(target);
                 _gridControl.RemoveHighlightObject(target);
             }

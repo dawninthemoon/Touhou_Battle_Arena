@@ -1181,7 +1181,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 889809106}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1569922901}
+        m_TargetAssemblyTypeName: MoveExecuter, Assembly-CSharp
+        m_MethodName: ExecuteAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &889809106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1277,7 +1289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridControl: {fileID: 1897323670}
-  _characterCtrl: {fileID: 1380223867}
+  _characterIllusionPrefab: {fileID: 7148874815608924592, guid: 30554e9ff64ae394ca922a56ae9da53a, type: 3}
 --- !u!1 &912929244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1443,7 +1455,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _executer: {fileID: 1569922901}
-  _skillButtonControl: {fileID: 0}
 --- !u!1 &1217354542
 GameObject:
   m_ObjectHideFlags: 0
@@ -2027,6 +2038,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _container: {fileID: 1191495345}
   _selector: {fileID: 895166788}
+  _moveButtonControl: {fileID: 1673060579}
   _gridControl: {fileID: 1897323670}
   _characterControl: {fileID: 1380223867}
 --- !u!1 &1673060576

@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Moves {
     public class Move_Movement : MoveBase {
+        public static readonly string MoveID = "Move_Movement";
         public Move_Movement(MoveInfo info) : base(info) {
             InitializeExecutionArea();
         }

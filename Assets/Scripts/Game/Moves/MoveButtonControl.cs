@@ -14,7 +14,6 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
     [SerializeField] private Image[] _slotImages;
     [SerializeField] private Button _upArrow, _downArrow, _rightArrow, _leftArrow;
     private Dictionary<string, Sprite> _skillIconDictionary;
-    private static readonly string MovementMoveID = "Move_Movement";
     private static readonly string SkillIconLabel = "SkillIcons";
     public bool IsLoadCompleted {
         get;
@@ -39,12 +38,17 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
         Initialize(_moveDataContainer.GetMoveInstancesByCharacter("Reimu"));
     }
 
-
     public void Initialize(MoveBase[] skillInstances) {
         foreach (MoveBase instance in skillInstances) {
             int buttonIndex = instance.Info.buttonIndex;
             _skillButtons[buttonIndex].AddListener(() => OnButtonClicked(instance.Info.moveID).Forget());
             _skillButtons[buttonIndex].GetComponent<Image>().sprite = _skillIconDictionary[instance.Info.moveID];
+        }
+    }
+
+    public void RemoveSlotImages() {
+        for (int i = 0; i < MoveExecuter.MaxSlots; ++i) {
+            _slotImages[i].sprite = null;
         }
     }
     
@@ -56,6 +60,6 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
     }
 
     private void MovementSelected(int areaIndex) {
-        _executer.RequestExecute(MovementMoveID, areaIndex);
+        _executer.RequestExecuteMovement(Move_Movement.MoveID, areaIndex);
     }
 }

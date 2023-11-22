@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace Moves {
     public class ExecutionArea {
@@ -11,6 +12,10 @@ namespace Moves {
         
         public ExecutionArea() {
             Rowcols = new HashSet<Rowcol>();
+        }
+
+        public Rowcol Single() {
+            return Rowcols.Single();
         }
 
         public void Add(Rowcol rowcol) {
