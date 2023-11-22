@@ -7,7 +7,6 @@ using Moves;
 
 public class MoveDataContainer : MonoBehaviour, ILoadable {
     [SerializeField] private MoveExecuter _executer;
-    [SerializeField] private SkillButtonControl _skillButtonControl;
     private Dictionary<string, MoveBase> _moveInstanceDictionary;
     public bool IsLoadCompleted {
         get;

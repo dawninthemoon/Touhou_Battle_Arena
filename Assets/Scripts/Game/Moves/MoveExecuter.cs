@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Moves;
 using Cysharp.Threading.Tasks;
 
@@ -19,18 +20,16 @@ public class MoveExecuter : MonoBehaviour {
         _sharedData = new SharedData(_gridControl, _characterControl);
     }
 
-    public void RequestExecute(string moveID) {
+    public async UniTask<int> RequestExecuteAsync(string moveID) {
         if (_currentSlotTop == MaxSlots) {
-            return;
+            return -1;
         }
         MoveBase instance = _container.GetMoveInstance(moveID);
-        RequestExecuteAsync(instance).Forget();
-    }
-
-    private async UniTaskVoid RequestExecuteAsync(MoveBase instance) {
         bool isRelative = instance.Info.isRelativeForCharacter;
         int areaIndex = await _selector.SelectExecutionArea(instance.GetExecutionArea(), isRelative);
+        
         _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, areaIndex);
+        return _currentSlotTop - 1;
     }
 
     public void RequestExecute(string moveID, int areaIndex) {
