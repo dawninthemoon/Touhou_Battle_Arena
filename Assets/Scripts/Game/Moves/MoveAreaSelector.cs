@@ -4,9 +4,8 @@ using UnityEngine;
 using Moves;
 using Cysharp.Threading.Tasks;
 using RieslingUtils;
-using ExitGames.Client.Photon.StructWrapping;
 
-public class MoveSelector : MonoBehaviour {
+public class MoveAreaSelector : MonoBehaviour {
     [SerializeField] private GridControl _gridControl;
     [SerializeField, Tooltip("Temp Option")] private CharacterControl _characterCtrl;
     private ObjectPool<GameObject> _gridMarkerPool;
@@ -61,8 +60,8 @@ public class MoveSelector : MonoBehaviour {
     private void UpdateGridMarkers() {
         int t = 0;
 
-        int diff = _executionAreas[_selectedAreaIndex].Size - _gridMarkers.Count;
-
+        int areaSize = (_executionAreas != null) ? _executionAreas[_selectedAreaIndex].Size : 0;
+        int diff = areaSize - _gridMarkers.Count;
         for (int i = 0; i < Mathf.Abs(diff); ++i) {
             if (diff > 0) {
                 _gridMarkers.Add(_gridMarkerPool.GetObject());
@@ -70,15 +69,18 @@ public class MoveSelector : MonoBehaviour {
             else if (diff < 0) {
                 _gridMarkerPool.ReturnObject(_gridMarkers[i]);
                 _gridMarkers.RemoveAt(i--);
+                ++diff;
             }
         }
 
-        Rowcol curr = _gridControl.PointToRowcol(ExMouse.GetMouseWorldPosition());
-        foreach (Rowcol rc in _executionAreas[_selectedAreaIndex].Rowcols) {
-            Rowcol target = _isRelativeForCharacter ? _characterCtrl.MyCharacterRowcol + rc : rc + curr;
-            _gridMarkers[t].transform.position = _gridControl.RowcolToPoint(target);
-            _gridMarkers[t].SetActive(_gridControl.IsValidRowcol(target));
-            ++t;
+        if (_executionAreas != null) {
+            Rowcol curr = _gridControl.PointToRowcol(ExMouse.GetMouseWorldPosition());
+            foreach (Rowcol rc in _executionAreas[_selectedAreaIndex].Rowcols) {
+                Rowcol target = _isRelativeForCharacter ? _characterCtrl.MyCharacterRowcol + rc : rc + curr;
+                _gridMarkers[t].transform.position = _gridControl.RowcolToPoint(target);
+                _gridMarkers[t].SetActive(_gridControl.IsValidRowcol(target));
+                ++t;
+            }
         }
     }
 
@@ -91,7 +93,11 @@ public class MoveSelector : MonoBehaviour {
         UpdateGridMarkers();
         ShowExecutionAreas(executionAreas, isRelativeForCharacter);
 
-        await UniTask.Yield();
+        await UniTask.WaitUntil(() => Input.GetMouseButtonDown(0));
+
+        _executionAreas = null;
+        UpdateGridMarkers();
+        _gridControl.RemoveAllHighlights();
 
         return _selectedAreaIndex;
     }
@@ -111,7 +117,6 @@ public class MoveSelector : MonoBehaviour {
 
     private void HideExecutionAreas(List<ExecutionArea> executionAreas, bool isRelativeForCharacter) {
         int numOfAreas = executionAreas.Count;
-        Rowcol curr = _gridControl.PointToRowcol(ExMouse.GetMouseWorldPosition());
         for (int i = 0; i < numOfAreas; ++i) {
             foreach (Rowcol rc in executionAreas[i].Rowcols) {
                 Rowcol target = isRelativeForCharacter ? _characterCtrl.MyCharacterRowcol + rc : rc + _prevMouseRowcol;

@@ -9,6 +9,11 @@ namespace Moves {
         public string moveID;
         public int executionAreaIndex;
 
+        public MoveConfig(string id, int index) {
+            moveID = id;
+            executionAreaIndex = index;
+        }
+
         public static byte[] Serialize(object moveObject) {
             MoveConfig moveInfo = (MoveConfig)moveObject;
             byte[] bytes = new byte[0];

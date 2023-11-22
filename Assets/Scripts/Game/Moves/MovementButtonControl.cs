@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class MovementButtonControl : MonoBehaviour {
-    [SerializeField] private MoveDataContainer _moveDataContainer;
     [SerializeField] private MoveExecuter _executer;
     [SerializeField] private Button _upArrow, _downArrow, _rightArrow, _leftArrow;
     private static readonly string MovementMoveID = "Move_Movement";
@@ -18,7 +17,6 @@ public class MovementButtonControl : MonoBehaviour {
     }
 
     private void MovementSelected(int areaIndex) {
-        Move_Movement instance = _moveDataContainer.GetMoveInstance(MovementMoveID) as Move_Movement;
-        _executer.Execute(instance, areaIndex);
+        _executer.RequestExecute(MovementMoveID, areaIndex);
     }
 }

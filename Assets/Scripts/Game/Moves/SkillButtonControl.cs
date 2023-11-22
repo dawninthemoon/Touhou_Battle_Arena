@@ -9,7 +9,7 @@ using System.Linq;
 public class SkillButtonControl : MonoBehaviour, ILoadable {
     [SerializeField] private MoveDataContainer _moveDataContainer;
     [SerializeField] private MoveExecuter _executer;
-    [SerializeField] private MoveSelector _selector;
+    [SerializeField] private MoveAreaSelector _selector;
     [SerializeField] private SkillButton[] _skillButtons;
     private static readonly string SkillIconLabel = "SkillIcons";
     private Dictionary<string, Sprite> _skillIconDictionary;
@@ -35,15 +35,12 @@ public class SkillButtonControl : MonoBehaviour, ILoadable {
     public void Initialize(MoveBase[] skillInstances) {
         foreach (MoveBase instance in skillInstances) {
             int buttonIndex = instance.Info.buttonIndex;
-            _skillButtons[buttonIndex].AddListener(() => OnButtonClicked(instance.Info.moveID).Forget());
+            _skillButtons[buttonIndex].AddListener(() => OnButtonClicked(instance.Info.moveID));
             _skillButtons[buttonIndex].GetComponent<Image>().sprite = _skillIconDictionary[instance.Info.moveID];
         }
     }
     
-    private async UniTaskVoid OnButtonClicked(string moveID) {
-        MoveBase instance = _moveDataContainer.GetMoveInstance(moveID);
-        bool isRelative = instance.Info.isRelativeForCharacter;
-
-        int areaIndex = await _selector.SelectExecutionArea(instance.GetExecutionArea(), isRelative);
+    private void OnButtonClicked(string moveID) {
+        _executer.RequestExecute(moveID);
     }
 }

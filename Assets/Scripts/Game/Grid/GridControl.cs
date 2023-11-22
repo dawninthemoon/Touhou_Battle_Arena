@@ -65,6 +65,15 @@ public class GridControl : MonoBehaviour {
         obj?.GetComponent<SpriteRenderer>().material.SetFloat("_ApplyAmount", 0f);
     }
 
+    public void RemoveAllHighlights() {
+        for (int row = 0; row < _height; ++row) {
+            for (int col = 0; col < _width; ++col) {
+                _tileGrid.GetElement(row, col)?.RemoveHighlight();
+                _objectGrid.GetElement(row, col)?.GetComponent<SpriteRenderer>().material.SetFloat("_ApplyAmount", 0f);
+            }
+        }
+    }
+
     // 수정 필요: 오브젝트가 둘 이상 있을 때
     public void OnObjectMoved(GameObject obj, Rowcol from, Rowcol to) {
         _objectGrid.SetElement(to, obj);

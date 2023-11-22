@@ -1056,7 +1056,7 @@ GameObject:
   - component: {fileID: 895166787}
   - component: {fileID: 895166788}
   m_Layer: 0
-  m_Name: MoveSelector
+  m_Name: MoveAreaSelector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1256,8 +1256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d542eb8019ab5fe4bafe9cb14d163aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _executer: {fileID: 0}
-  _skillButtonControl: {fileID: 0}
+  _executer: {fileID: 1569922901}
+  _skillButtonControl: {fileID: 1673060579}
 --- !u!1 &1253260788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,6 +1522,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bd9c3c4855badd499b2b4c1ddb7ad3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _container: {fileID: 1191495345}
+  _selector: {fileID: 895166788}
   _gridControl: {fileID: 1897323670}
   _characterControl: {fileID: 1380223867}
 --- !u!1 &1673060576
