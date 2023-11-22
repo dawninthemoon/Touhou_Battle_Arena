@@ -40,10 +40,19 @@ public class GridControl : MonoBehaviour {
     public Vector3 RowcolToPoint(Rowcol rowcol) {
         return _tileGrid.RowcolToPointCenter(rowcol);
     }
+ 
+    public bool IsValidRowcol(Rowcol rowcol) {
+        return _tileGrid.IsValidRowcol(rowcol);
+    }
 
     public void HighlightTileObject(Rowcol rowcol) {
         TileObject tileObj = _tileGrid.GetElement(rowcol);
         tileObj?.HighlightSelf();
+    }
+
+    public void RemoveHighlightTileObject(Rowcol rowcol) {
+        TileObject tileObj = _tileGrid.GetElement(rowcol);
+        tileObj?.RemoveHighlight();
     }
 
     private void OnDrawGizmos() {

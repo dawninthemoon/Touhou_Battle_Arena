@@ -34,7 +34,9 @@ public struct Rowcol {
     public static Rowcol operator*(int scalar, Rowcol rc)
         => rc * scalar;
 
-
+    public bool Equals(Rowcol other) {
+        return (row == other.row) && (column == other.column);
+    }
     public override string ToString() {
         return "(" + row.ToString() + ", " + column.ToString() + ")";
     }

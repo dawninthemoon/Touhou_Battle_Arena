@@ -5,6 +5,9 @@ using UnityEngine;
 namespace Moves {
     public class ExecutionArea {
         public HashSet<Rowcol> Rowcols;
+        public int Size {
+            get { return Rowcols.Count; }
+        }
         
         public ExecutionArea() {
             Rowcols = new HashSet<Rowcol>();
