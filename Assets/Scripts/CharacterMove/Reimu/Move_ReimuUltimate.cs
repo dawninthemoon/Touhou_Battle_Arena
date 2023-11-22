@@ -9,7 +9,13 @@ namespace Moves {
         }
 
         public override void InitializeExecutionArea() {
-            
+             ExecutionArea area = new ExecutionArea();
+            area.Add(Rowcol.Zero);
+            for (int directionIdx = 0; directionIdx < Rowcol.directions.Length; ++directionIdx) {
+                area.Add(Rowcol.directions[directionIdx]);
+            }
+
+            _executionAreas.Add(area);
         }
 
         public override void Execute(TeamColor caster, int areaIndex, SharedData sharedData) {
