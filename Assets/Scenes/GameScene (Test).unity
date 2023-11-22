@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 160423396}
   - component: {fileID: 160423395}
   m_Layer: 5
-  m_Name: Button3
+  m_Name: Button_Skill2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -625,7 +625,7 @@ GameObject:
   - component: {fileID: 628546282}
   - component: {fileID: 628546281}
   m_Layer: 5
-  m_Name: Button5
+  m_Name: Button_Ultimate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1272,7 +1272,7 @@ GameObject:
   - component: {fileID: 1253260791}
   - component: {fileID: 1253260790}
   m_Layer: 5
-  m_Name: Button4
+  m_Name: Button_Skill3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1918,7 +1918,7 @@ GameObject:
   - component: {fileID: 1900987869}
   - component: {fileID: 1900987868}
   m_Layer: 5
-  m_Name: Button2
+  m_Name: Button_Skill1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2096,7 +2096,7 @@ GameObject:
   - component: {fileID: 1952231947}
   - component: {fileID: 1952231946}
   m_Layer: 5
-  m_Name: Button1
+  m_Name: Button_BasicAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
