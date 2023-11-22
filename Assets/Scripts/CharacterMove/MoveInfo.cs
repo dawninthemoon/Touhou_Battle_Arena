@@ -6,7 +6,7 @@ using System.Text;
 namespace Moves {
     public struct MoveInfo {
         public string moveID;
-        public string characterID;
+        public string characterKey;
         public string moveName;
         public int cost;
         public int value;

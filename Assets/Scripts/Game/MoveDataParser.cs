@@ -7,7 +7,7 @@ using Moves;
 
 public class MoveDataParser {
     private static readonly string MoveIDColumn = "MoveID";
-    private static readonly string CharacterIDColumn = "CharacterID";
+    private static readonly string CharacterKeyColumn = "CharacterKey";
     private static readonly string NameColumn = "MoveName";
     private static readonly string CostColumn = "Cost";
     private static readonly string ValueColumn = "Value";
@@ -51,7 +51,7 @@ public class MoveDataParser {
             
             MoveInfo moveInfo = new MoveInfo() {
                 moveID = jsonObj.GetField(MoveIDColumn).stringValue,
-                characterID = jsonObj.GetField(CharacterIDColumn).stringValue,
+                characterKey = jsonObj.GetField(CharacterKeyColumn).stringValue,
                 moveName = jsonObj.GetField(NameColumn).stringValue,
                 cost = jsonObj.GetField(CostColumn).intValue,
                 value = jsonObj.GetField(ValueColumn).intValue,

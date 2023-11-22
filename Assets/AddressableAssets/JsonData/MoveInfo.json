@@ -1,7 +1,7 @@
 [
   {
     "MoveID": "Move_Movement",
-    "CharacterID": null,
+    "CharacterKey": null,
     "MoveName": "기초 이동",
     "Cost": 0,
     "Value": 15,
@@ -12,7 +12,7 @@
   },
   {
     "MoveID": "Move_ReimuBasicAttack",
-    "CharacterID": "Reimu",
+    "CharacterKey": "Reimu",
     "MoveName": "요괴 버스터",
     "Cost": 0,
     "Value": 15,
@@ -20,5 +20,49 @@
     "IsRelativeForCharacter": true,
     "Variables": "damage(15)",
     "ButtonIndex": 0
+  },
+  {
+    "MoveID": "Move_ReimuSkill1",
+    "CharacterKey": "Reimu",
+    "MoveName": "요괴 버스터",
+    "Cost": 0,
+    "Value": 15,
+    "Description": null,
+    "IsRelativeForCharacter": true,
+    "Variables": "damage(15)",
+    "ButtonIndex": 1
+  },
+  {
+    "MoveID": "Move_ReimuSkill2",
+    "CharacterKey": "Reimu",
+    "MoveName": "요괴 버스터",
+    "Cost": 0,
+    "Value": 15,
+    "Description": null,
+    "IsRelativeForCharacter": true,
+    "Variables": "damage(15)",
+    "ButtonIndex": 2
+  },
+  {
+    "MoveID": "Move_ReimuSkill3",
+    "CharacterKey": "Reimu",
+    "MoveName": "요괴 버스터",
+    "Cost": 0,
+    "Value": 15,
+    "Description": null,
+    "IsRelativeForCharacter": true,
+    "Variables": "damage(15)",
+    "ButtonIndex": 3
+  },
+  {
+    "MoveID": "Move_ReimuUltimate",
+    "CharacterKey": "Reimu",
+    "MoveName": "요괴 버스터",
+    "Cost": 0,
+    "Value": 15,
+    "Description": null,
+    "IsRelativeForCharacter": true,
+    "Variables": "damage(15)",
+    "ButtonIndex": 4
   }
 ]
