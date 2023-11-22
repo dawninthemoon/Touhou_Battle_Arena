@@ -10,6 +10,7 @@ namespace Moves {
         public string moveName;
         public int cost;
         public int value;
+        public int spellSpeed;
         public string description;
         public bool isRelativeForCharacter;
         public Dictionary<string, string[]> variables;

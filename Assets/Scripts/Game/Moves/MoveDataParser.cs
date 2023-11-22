@@ -11,6 +11,7 @@ public class MoveDataParser {
     private static readonly string NameColumn = "MoveName";
     private static readonly string CostColumn = "Cost";
     private static readonly string ValueColumn = "Value";
+    private static readonly string SpellSpeedColumn = "SpellSpeed";
     private static readonly string DescriptionColumn = "Description";
     private static readonly string IsRelativeColumn = "IsRelativeForCharacter";
     private static readonly string VariablesColumn = "Variables";
@@ -55,6 +56,7 @@ public class MoveDataParser {
                 moveName = jsonObj.GetField(NameColumn).stringValue,
                 cost = jsonObj.GetField(CostColumn).intValue,
                 value = jsonObj.GetField(ValueColumn).intValue,
+                spellSpeed = jsonObj.GetField(SpellSpeedColumn).intValue,
                 description = jsonObj.GetField(DescriptionColumn).stringValue,
                 isRelativeForCharacter = jsonObj.GetField(IsRelativeColumn).boolValue,
                 variables = commandsDictionary,
