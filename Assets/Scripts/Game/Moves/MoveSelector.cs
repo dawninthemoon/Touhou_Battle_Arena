@@ -103,7 +103,8 @@ public class MoveSelector : MonoBehaviour {
             foreach (Rowcol rc in executionAreas[i].Rowcols) {
                 Rowcol target = isRelativeForCharacter ? _characterCtrl.MyCharacterRowcol + rc : rc + curr;
 
-                _gridControl.HighlightTileObject(target);
+                _gridControl.HighlightTile(target);
+                _gridControl.HighlightObject(target);
             }
         }
     }
@@ -114,7 +115,8 @@ public class MoveSelector : MonoBehaviour {
         for (int i = 0; i < numOfAreas; ++i) {
             foreach (Rowcol rc in executionAreas[i].Rowcols) {
                 Rowcol target = isRelativeForCharacter ? _characterCtrl.MyCharacterRowcol + rc : rc + _prevMouseRowcol;
-                _gridControl.RemoveHighlightTileObject(target);
+                _gridControl.RemoveHighlightTile(target);
+                _gridControl.RemoveHighlightObject(target);
             }
         }
     }

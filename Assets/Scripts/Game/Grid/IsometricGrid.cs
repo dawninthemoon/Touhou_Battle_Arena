@@ -40,6 +40,10 @@ public class IsometricGrid<T> where T : class {
         _gridArray[row, column] = value;
     }
 
+    public void SetElement(Rowcol rowcol, T value) {
+        SetElement(rowcol.row, rowcol.column, value);
+    }
+
     public Vector3 RowcolToPoint(int row, int column) {
         float x = (row + column) * _ceilSize;
         float y = (-row + column) * _ceilSize * 0.5f;

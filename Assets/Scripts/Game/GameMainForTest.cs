@@ -13,6 +13,9 @@ public class GameMainForTest : MonoBehaviour {
 
     private async UniTaskVoid Start() {
         Rowcol initialRowcol = await _gridSelector.SelectGrid();
-        _characterControl.PlaceMyCharacter(initialRowcol);
+        _characterControl.PlaceCharacter(TeamColor.BLUE, initialRowcol);
+
+        initialRowcol = await _gridSelector.SelectGrid();
+        _characterControl.PlaceCharacter(TeamColor.RED, initialRowcol);
     }
 }
