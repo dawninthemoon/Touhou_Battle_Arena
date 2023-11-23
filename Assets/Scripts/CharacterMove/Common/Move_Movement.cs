@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+using System;
 
 namespace Moves {
     public class Move_Movement : MoveBase {
@@ -23,11 +25,12 @@ namespace Moves {
             _executionAreas[3].Add(new Rowcol(0, -1)); // Left
         }
 
-        public override void Execute(TeamColor caster, int areaIndex, SharedData sharedData) {
+        public override async UniTask Execute(TeamColor caster, int areaIndex, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             foreach (Rowcol rc in area.Rowcols) {
                 sharedData.CharcaterCtrl.MoveCharacter(caster, rc);
             }
+            await UniTask.Delay(TimeSpan.FromSeconds(0.25));
         }
     }
 }

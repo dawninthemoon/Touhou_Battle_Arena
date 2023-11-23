@@ -8,7 +8,7 @@ using Cysharp.Threading.Tasks;
 
 public class MoveButtonControl : MonoBehaviour, ILoadable {
     [SerializeField] private MoveDataContainer _moveDataContainer;
-    [SerializeField] private MoveExecuter _executer;
+    [SerializeField] private MoveSlot _moveSlot;
     [SerializeField] private MoveAreaSelector _selector;
     [SerializeField] private SkillButton[] _skillButtons;
     [SerializeField] private Image[] _slotImages;
@@ -47,19 +47,19 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
     }
 
     public void RemoveSlotImages() {
-        for (int i = 0; i < MoveExecuter.MaxSlots; ++i) {
+        for (int i = 0; i < MoveSlot.MaxSlots; ++i) {
             _slotImages[i].sprite = null;
         }
     }
     
     private async UniTaskVoid OnButtonClicked(string moveID) {
-        int slotIndex = await _executer.RequestExecuteAsync(moveID);
+        int slotIndex = await _moveSlot.RequestExecuteAsync(moveID);
         if (slotIndex != -1) {
             _slotImages[slotIndex].sprite = _skillIconDictionary[moveID];
         }
     }
 
     private void MovementSelected(int areaIndex) {
-        _executer.RequestExecuteMovement(Move_Movement.MoveID, areaIndex);
+        _moveSlot.RequestExecuteMovement(Move_Movement.MoveID, areaIndex);
     }
 }

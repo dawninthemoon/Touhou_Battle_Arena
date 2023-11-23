@@ -1,65 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Moves;
 using Cysharp.Threading.Tasks;
 
 public class MoveExecuter : MonoBehaviour {
+    private struct RequestedMoveConfig {
+        public TeamColor player;
+        public MoveConfig[] moves;
+        public RequestedMoveConfig(TeamColor p, MoveConfig[] m) {
+            player = p;
+            moves = m;
+        }
+    }
+
     [SerializeField] private MoveDataContainer _container;
-    [SerializeField] private MoveAreaSelector _selector;
-    [SerializeField] private MoveButtonControl _moveButtonControl;
     [SerializeField] private GridControl _gridControl;
     [SerializeField] private CharacterControl _characterControl;
-    private MoveConfig[] _requestedMoves;
     private SharedData _sharedData;
-    public static readonly int MaxSlots = 3;
-    private int _currentSlotTop;
-
+    private int _requestesOnQueue;
+    private RequestedMoveConfig[] _requestedMoveConfigs;
+    
     private void Awake() {
-        _requestedMoves = new MoveConfig[MaxSlots];
         _sharedData = new SharedData(_gridControl, _characterControl);
+        _requestedMoveConfigs = new RequestedMoveConfig[2];
     }
 
-    public async UniTask<int> RequestExecuteAsync(string moveID) {
-        if (_currentSlotTop == MaxSlots) {
-            return -1;
+    public void ExecuteAll(TeamColor player, MoveConfig[] moves) {
+        _requestedMoveConfigs[_requestesOnQueue++] = new RequestedMoveConfig(player, moves);
+
+        if (_requestesOnQueue == 2) {
+            ExecuteAll().Forget();
         }
-        MoveBase instance = _container.GetMoveInstance(moveID);
-        bool isRelative = instance.Info.isRelativeForCharacter;
-        int areaIndex = await _selector.SelectExecutionArea(instance.GetExecutionArea(), isRelative, GetCharacterRowcol());
-        
-        _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, areaIndex);
-        return _currentSlotTop - 1;
     }
 
-    public void RequestExecuteMovement(string moveID, int areaIndex) {
-        if (_currentSlotTop == MaxSlots) {
-            return;
-        }
+    private async UniTaskVoid ExecuteAll() {
+        _requestesOnQueue = 0;
 
-        MoveBase instance = _container.GetMoveInstance(moveID);
-        _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, areaIndex);
-        _selector.AddCharacterIllusion(GetCharacterRowcol());
-    }
+        for (int phase = 0; phase < MoveSlot.MaxSlots; ++phase) {
+            for (int playerIdx = 0; playerIdx < 2; ++playerIdx) {
+                TeamColor player = _requestedMoveConfigs[playerIdx].player;
+                MoveConfig[] moves = _requestedMoveConfigs[playerIdx].moves;
 
-    public void ExecuteAll() {
-        _currentSlotTop = 0;
-        _selector.RemoveAllIllusions();
-        _moveButtonControl.RemoveSlotImages();
-
-        //TeamColor player = TeamColor.RED;
-        //instance.Execute(player, areaIndex, _sharedData);
-    }
-
-    private Rowcol GetCharacterRowcol() {
-        Rowcol rc = Rowcol.Zero;
-        var moveAreas = _container.GetMoveInstance(Move_Movement.MoveID).GetExecutionArea();
-        for (int i = 0; i < _currentSlotTop; ++i) {
-            if (_requestedMoves[i].moveID.Equals(Move_Movement.MoveID)) {
-               rc += moveAreas[_requestedMoves[i].executionAreaIndex].Single();
+                MoveBase instance = _container.GetMoveInstance(moves[phase].moveID);
+                await instance.Execute(player, moves[phase].executionAreaIndex, _sharedData);
             }
         }
-        return rc + _characterControl.MyCharacterRowcol;
     }
 }

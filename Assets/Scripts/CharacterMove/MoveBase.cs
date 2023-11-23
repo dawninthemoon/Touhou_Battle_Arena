@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace Moves {
     public abstract class MoveBase {
@@ -17,6 +18,6 @@ namespace Moves {
         public List<ExecutionArea> GetExecutionArea() {
             return _executionAreas;
         }
-        public abstract void Execute(TeamColor caster, int areaIndex, SharedData sharedData);
+        public abstract UniTask Execute(TeamColor caster, int areaIndex, SharedData sharedData);
     }
 }

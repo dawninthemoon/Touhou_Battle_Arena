@@ -9,6 +9,7 @@ using TMPro;
 namespace Network {
     public class NetworkManager : MonoBehaviourPunCallbacks {
         private static readonly int MaxPlayersPerRoom = 2;
+        private int _updatedProperties;
         public TMP_Text StatusText;
 
         private void Awake() {
@@ -111,15 +112,21 @@ namespace Network {
 
                     string teamColorID = "TeamColor";
                     Player otherPlayer = PhotonNetwork.PlayerListOthers[0];
+
                     PhotonNetwork.LocalPlayer.SetCustomProperties(
                         new ExitGames.Client.Photon.Hashtable { {teamColorID, color}}
                     );
                     otherPlayer.SetCustomProperties(
                         new ExitGames.Client.Photon.Hashtable { {teamColorID, opponentColor}}
                     );
-
-                    PhotonNetwork.LoadLevel("GameScene");
                 }
+            }
+        }
+
+        public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps) {
+            ++_updatedProperties;
+            if ((_updatedProperties == 2) && PhotonNetwork.IsMasterClient) {
+                PhotonNetwork.LoadLevel("GameScene");
             }
         }
 

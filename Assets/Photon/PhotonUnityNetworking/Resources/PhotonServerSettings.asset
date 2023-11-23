@@ -42,6 +42,8 @@ MonoBehaviour:
   - MoveOpponentCharacter
   - MoveMyCharacter
   - Func
+  - ExecuteMoves
+  - RequestExecuteMoves
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

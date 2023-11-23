@@ -14,7 +14,8 @@ public class CharacterControl : MonoBehaviour {
         _myCharacter = Instantiate(_reimuPrefab);
         _myCharacter.gameObject.SetActive(false);
 
-        _opponentCharacter = Instantiate(_marisaPrefab);
+        _opponentCharacter = Instantiate(_reimuPrefab);
+        _opponentCharacter.GetComponent<SpriteRenderer>().color = Color.red;
         _opponentCharacter.gameObject.SetActive(false);
     }
 
@@ -30,18 +31,20 @@ public class CharacterControl : MonoBehaviour {
     }
 
     public void MoveCharacter(TeamColor player, Rowcol rowcol) {
-        Rowcol target = _myCharacter.Curr + rowcol;
+        var character = GetCharacterByColor(player);
+
+        Rowcol target = character.Curr + rowcol;
         Vector3 position = _gridControl.RowcolToPoint(target);
         position.y += 12f;
 
-        var character = GetCharacterByColor(player);
-        _gridControl.OnObjectMoved(character.gameObject, character.Curr, rowcol);
+        
+        _gridControl.OnObjectMoved(character.gameObject, character.Curr, target);
         character.MoveImmediate(position, target);
         character.gameObject.SetActive(true);
     }
 
     // 후에 네트워크 있으면 수정 필요
     public CharacterTest GetCharacterByColor(TeamColor color) {
-        return (color == TeamColor.BLUE) ? _myCharacter : _opponentCharacter;
+        return (color == PlayerMoveReceiver.MyColor) ? _myCharacter : _opponentCharacter;
     }
 }

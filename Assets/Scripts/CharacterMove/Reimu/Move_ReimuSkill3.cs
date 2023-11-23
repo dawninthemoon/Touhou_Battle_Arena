@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 namespace Moves {
     public class Move_ReimuSkill3 : MoveBase {
@@ -17,9 +18,18 @@ namespace Moves {
             _executionAreas.Add(area);
         }
 
-        public override void Execute(TeamColor caster, int areaIndex, SharedData sharedData) {
+        public override async UniTask Execute(TeamColor caster, int areaIndex, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             foreach (Rowcol rc in area.Rowcols) {
+                sharedData.GridCtrl.HighlightTile(rc);
+                sharedData.GridCtrl.HighlightObject(rc);
+            }
+
+            await UniTask.Delay(System.TimeSpan.FromSeconds(0.25));
+
+            foreach (Rowcol rc in area.Rowcols) {
+                sharedData.GridCtrl.RemoveHighlightTile(rc);
+                sharedData.GridCtrl.RemoveHighlightObject(rc);
             }
         }
     }

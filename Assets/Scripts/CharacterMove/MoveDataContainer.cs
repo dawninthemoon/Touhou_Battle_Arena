@@ -6,7 +6,6 @@ using System.Linq;
 using Moves;
 
 public class MoveDataContainer : MonoBehaviour, ILoadable {
-    [SerializeField] private MoveExecuter _executer;
     private Dictionary<string, MoveBase> _moveInstanceDictionary;
     public bool IsLoadCompleted {
         get;
