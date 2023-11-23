@@ -43,7 +43,11 @@ public class MoveExecuter : MonoBehaviour {
                 MoveConfig[] moves = _requestedMoveConfigs[playerIdx].moves;
 
                 MoveBase instance = _container.GetMoveInstance(moves[phase].moveID);
-                await instance.Execute(player, moves[phase].executionAreaIndex, _sharedData);
+                if (instance != null) {
+                    int index = moves[phase].executionAreaIndex;
+                    Rowcol origin = moves[phase].origin;
+                    await instance.Execute(player, index, origin, _sharedData);
+                }
             }
         }
     }

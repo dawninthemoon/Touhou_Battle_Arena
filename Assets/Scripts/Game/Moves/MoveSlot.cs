@@ -30,9 +30,9 @@ public class MoveSlot : MonoBehaviour {
         }
         MoveBase instance = _container.GetMoveInstance(moveID);
         bool isRelative = instance.Info.isRelativeForCharacter;
-        int areaIndex = await _selector.SelectExecutionArea(instance.GetExecutionArea(), isRelative, GetCharacterRowcol());
+        (int, Rowcol) result = await _selector.SelectExecutionArea(instance.GetExecutionArea(), isRelative, GetCharacterRowcol());
         
-        _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, areaIndex);
+        _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, result.Item1, result.Item2);
         return _currentSlotTop - 1;
     }
 
@@ -48,7 +48,7 @@ public class MoveSlot : MonoBehaviour {
             return;
         }
 
-        _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, areaIndex);
+        _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, areaIndex, _characterControl.MyCharacterRowcol);
         _selector.AddCharacterIllusion(GetCharacterRowcol());
     }
 

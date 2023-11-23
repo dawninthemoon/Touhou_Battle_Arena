@@ -8,10 +8,12 @@ namespace Moves {
     public struct MoveConfig {
         public string moveID;
         public int executionAreaIndex;
+        public Rowcol origin;
 
-        public MoveConfig(string id, int index) {
+        public MoveConfig(string id, int index, Rowcol rc) {
             moveID = id;
             executionAreaIndex = index;
+            origin = rc;
         }
 
         public static byte[] Serialize(object moveObject) {
@@ -20,6 +22,8 @@ namespace Moves {
 
             Serializer.Serialize(moveInfo.moveID, ref bytes);
             Serializer.Serialize(moveInfo.executionAreaIndex, ref bytes);
+            Serializer.Serialize(moveInfo.origin.row, ref bytes);
+            Serializer.Serialize(moveInfo.origin.column, ref bytes);
 
             return bytes;
         }
@@ -30,6 +34,8 @@ namespace Moves {
 
             moveInfo.moveID = Serializer.DeserializeString(bytes, ref offset);
             moveInfo.executionAreaIndex = Serializer.DeserializeInt(bytes, ref offset);
+            moveInfo.origin.row = Serializer.DeserializeInt(bytes, ref offset);
+            moveInfo.origin.column = Serializer.DeserializeInt(bytes, ref offset);
             
             return moveInfo;
         }

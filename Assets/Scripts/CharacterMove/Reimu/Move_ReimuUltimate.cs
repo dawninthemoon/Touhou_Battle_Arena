@@ -19,18 +19,20 @@ namespace Moves {
             _executionAreas.Add(area);
         }
 
-        public override async UniTask Execute(TeamColor caster, int areaIndex, SharedData sharedData) {
+        public override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             foreach (Rowcol rc in area.Rowcols) {
-                sharedData.GridCtrl.HighlightTile(rc);
-                sharedData.GridCtrl.HighlightObject(rc);
+                Rowcol target = origin + rc;
+                sharedData.GridCtrl.HighlightTile(target);
+                sharedData.GridCtrl.HighlightObject(target);
             }
 
             await UniTask.Delay(System.TimeSpan.FromSeconds(0.25));
 
             foreach (Rowcol rc in area.Rowcols) {
-                sharedData.GridCtrl.RemoveHighlightTile(rc);
-                sharedData.GridCtrl.RemoveHighlightObject(rc);
+                Rowcol target = origin + rc;
+                sharedData.GridCtrl.RemoveHighlightTile(target);
+                sharedData.GridCtrl.RemoveHighlightObject(target);
             }
         }
     }

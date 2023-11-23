@@ -103,7 +103,7 @@ public class MoveAreaSelector : MonoBehaviour {
         }
     }
 
-    public async UniTask<int> SelectExecutionArea(List<ExecutionArea> executionAreas, bool isRelativeForCharacter, Rowcol casterPos) {
+    public async UniTask<(int, Rowcol)> SelectExecutionArea(List<ExecutionArea> executionAreas, bool isRelativeForCharacter, Rowcol casterPos) {
         _selectedAreaIndex = 0;
         _executionAreas = executionAreas;
         _isRelativeForCharacter = isRelativeForCharacter;
@@ -115,11 +115,13 @@ public class MoveAreaSelector : MonoBehaviour {
 
         await UniTask.WaitUntil(() => Input.GetMouseButtonDown(0));
 
+        Rowcol curr = _gridControl.PointToRowcol(ExMouse.GetMouseWorldPosition());
+        Rowcol origin = _isRelativeForCharacter ? _casterPosition : curr;
         _executionAreas = null;
         UpdateGridMarkers();
         _gridControl.RemoveAllHighlights();
 
-        return _selectedAreaIndex;
+        return (_selectedAreaIndex, origin);
     }
     
     private void ShowExecutionAreas(List<ExecutionArea> executionAreas, bool isRelativeForCharacter) {

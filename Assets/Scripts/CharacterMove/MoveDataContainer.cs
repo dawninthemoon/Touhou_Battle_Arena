@@ -42,6 +42,7 @@ public class MoveDataContainer : MonoBehaviour, ILoadable {
     public MoveBase GetMoveInstance(string moveID) {
         if (!_moveInstanceDictionary.TryGetValue(moveID, out MoveBase instance)) {
             Debug.LogError("Move not exists");
+            return null;
         }
         return instance;
     }

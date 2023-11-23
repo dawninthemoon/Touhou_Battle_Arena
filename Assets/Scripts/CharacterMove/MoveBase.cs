@@ -18,6 +18,6 @@ namespace Moves {
         public List<ExecutionArea> GetExecutionArea() {
             return _executionAreas;
         }
-        public abstract UniTask Execute(TeamColor caster, int areaIndex, SharedData sharedData);
+        public abstract UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData);
     }
 }
