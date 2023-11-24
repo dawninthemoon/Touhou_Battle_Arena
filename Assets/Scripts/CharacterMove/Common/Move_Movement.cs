@@ -30,7 +30,7 @@ namespace Moves {
             foreach (Rowcol rc in area.Rowcols) {
                 sharedData.CharcaterCtrl.MoveCharacter(caster, rc);
             }
-            await UniTask.Delay(TimeSpan.FromSeconds(0.25));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.5));
         }
     }
 }

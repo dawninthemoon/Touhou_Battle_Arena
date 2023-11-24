@@ -33,7 +33,7 @@ namespace Moves {
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }
 
-            await UniTask.Delay(System.TimeSpan.FromSeconds(0.25));
+            await UniTask.Delay(System.TimeSpan.FromSeconds(0.5));
 
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;

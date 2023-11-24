@@ -47,7 +47,7 @@ public class MoveSlot : MonoBehaviour {
         }
 
         MoveBase instance = _container.GetMoveInstance(moveID);
-        Rowcol destination = _characterControl.MyCharacterRowcol + instance.GetExecutionArea()[areaIndex].Single();
+        Rowcol destination = GetCharacterRowcol() + instance.GetExecutionArea()[areaIndex].Single();
 
         if (!_gridControl.IsValidRowcol(destination)) {
             return;
@@ -58,13 +58,21 @@ public class MoveSlot : MonoBehaviour {
     }
 
     public void RequestExecuteAll() {
-        _currentSlotTop = 0;
-        _selector.RemoveAllIllusions();
-        _moveButtonControl.RemoveSlotImages();
+        if (_currentSlotTop == MaxSlots - 1) {
+            return;
+        }
+        ResetSlot();
 
         _moveButtonControl.SetButtonInteraction(false);
         _playerMoveReceiver.ExecuteMoves(_container, _requestedMoves);
     }
+
+    public void ResetSlot() {
+        _currentSlotTop = 0;
+        _selector.RemoveAllIllusions();
+        _moveButtonControl.RemoveSlotImages();
+    }
+
     private Rowcol GetCharacterRowcol() {
         Rowcol rc = Rowcol.Zero;
         var moveAreas = _container.GetMoveInstance(Move_Movement.MoveID).GetExecutionArea();
