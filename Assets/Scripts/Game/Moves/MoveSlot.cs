@@ -36,7 +36,10 @@ public class MoveSlot : MonoBehaviour {
             isRelative,
             GetCharacterRowcol()
         );
-        
+
+        if (result.Item1 == -1) {
+            return -1;
+        }
         _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, result.Item1, result.Item2);
         return _currentSlotTop - 1;
     }
