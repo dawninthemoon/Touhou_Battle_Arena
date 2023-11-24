@@ -41,23 +41,6 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
         Initialize(_moveDataContainer.GetMoveInstancesByCharacter("Reimu"));
     }
 
-    private void Update() {
-        if (_upArrow.IsInteractable()) {
-            if (Input.GetKeyDown(KeyCode.W)) {
-                MovementSelected(0);
-            }
-            else if (Input.GetKeyDown(KeyCode.D)) {
-                MovementSelected(1);
-            }
-            else if (Input.GetKeyDown(KeyCode.S)) {
-                MovementSelected(2);
-            }
-            else if (Input.GetKeyDown(KeyCode.A)) {
-                MovementSelected(3);
-            }
-        }
-    }
-
     public void Initialize(MoveBase[] skillInstances) {
         foreach (MoveBase instance in skillInstances) {
             int buttonIndex = instance.Info.buttonIndex;

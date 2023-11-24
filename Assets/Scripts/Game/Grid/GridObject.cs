@@ -24,7 +24,7 @@ public abstract class GridObject : MonoBehaviour {
         _onReceiveDamage = onReceiveDamage;
     }
 
-    public void ReceiveDamage(int amount) {
+    public virtual void ReceiveDamage(int amount) {
         Health = Mathf.Max(Health - amount, 0);
         _onReceiveDamage?.Invoke();
     }

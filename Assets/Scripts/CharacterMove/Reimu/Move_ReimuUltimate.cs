@@ -30,7 +30,7 @@ namespace Moves {
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 int finalDamage = rc.Equals(Rowcol.Zero) ? damage2 : damage1;
-                DamageAt(caster, target, finalDamage, sharedData.GridCtrl);
+                AttackAt(caster, target, finalDamage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }

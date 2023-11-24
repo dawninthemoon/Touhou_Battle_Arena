@@ -20,9 +20,13 @@ namespace Moves {
         }
         public abstract UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData);
     
-        protected void DamageAt(TeamColor color, Rowcol target, int damage, GridControl gridControl) {
+        protected void AttackAt(TeamColor color, Rowcol target, int damage, GridControl gridControl, CharacterControl characterControl) {
             GridObject obj = gridControl.GetObject(TeamColor.NONE, target);
             GridObject obj2 = gridControl.GetObject(ExTeamColor.GetOpponentColor(color), target);
+
+            PlayerCharacter character = characterControl.GetCharacterByColor(color);
+            character.OnCharacterAttack();
+
             obj?.ReceiveDamage(damage);
             obj2?.ReceiveDamage(damage);
         }

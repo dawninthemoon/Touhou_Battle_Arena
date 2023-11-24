@@ -26,7 +26,7 @@
   {
     "MoveID": "Move_ReimuSkill1",
     "CharacterKey": "Reimu",
-    "MoveName": "요괴 버스터",
+    "MoveName": "호밍 애뮬릿",
     "Cost": 30,
     "Value": 15,
     "SpellSpeed": 1,
@@ -38,7 +38,7 @@
   {
     "MoveID": "Move_ReimuSkill2",
     "CharacterKey": "Reimu",
-    "MoveName": "요괴 버스터",
+    "MoveName": "퍼스웨이전 니들",
     "Cost": 25,
     "Value": 15,
     "SpellSpeed": 1,
@@ -50,7 +50,7 @@
   {
     "MoveID": "Move_ReimuSkill3",
     "CharacterKey": "Reimu",
-    "MoveName": "요괴 버스터",
+    "MoveName": "몽부「이중결계」",
     "Cost": 20,
     "Value": 15,
     "SpellSpeed": 2,
@@ -62,7 +62,7 @@
   {
     "MoveID": "Move_ReimuUltimate",
     "CharacterKey": "Reimu",
-    "MoveName": "요괴 버스터",
+    "MoveName": "보구「음양귀신옥」",
     "Cost": 60,
     "Value": 15,
     "SpellSpeed": 1,

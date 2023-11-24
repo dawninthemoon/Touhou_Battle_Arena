@@ -10,12 +10,12 @@ public class CharacterUIControl : MonoBehaviour {
 
     }
 
-    public void OnReceiveDamage(CharacterTest character) {
+    public void OnReceiveDamage(PlayerCharacter character) {
         Image hpBar = IsMyCharacter(character) ? _myHpBar : _opponentHpBar;
         hpBar.fillAmount = (float)character.Health / character.MaxHealth;
     }
 
-    private bool IsMyCharacter(CharacterTest character) {
+    private bool IsMyCharacter(PlayerCharacter character) {
         return character.Color == PlayerMoveReceiver.MyColor;
     }
 }

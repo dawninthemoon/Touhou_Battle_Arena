@@ -40,7 +40,7 @@ namespace Moves {
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
 
-                DamageAt(caster, target, damage, sharedData.GridCtrl);
+                AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }
