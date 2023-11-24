@@ -711,7 +711,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!222 &407150470
@@ -2767,6 +2767,7 @@ MonoBehaviour:
   _container: {fileID: 1191495345}
   _gridControl: {fileID: 1897323670}
   _characterControl: {fileID: 1380223867}
+  _moveButtonControl: {fileID: 1673060579}
 --- !u!1 &1897323669
 GameObject:
   m_ObjectHideFlags: 0

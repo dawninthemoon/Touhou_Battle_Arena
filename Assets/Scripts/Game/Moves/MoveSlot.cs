@@ -62,6 +62,7 @@ public class MoveSlot : MonoBehaviour {
         _selector.RemoveAllIllusions();
         _moveButtonControl.RemoveSlotImages();
 
+        _moveButtonControl.SetButtonInteraction(false);
         _playerMoveReceiver.ExecuteMoves(_container, _requestedMoves);
     }
     private Rowcol GetCharacterRowcol() {

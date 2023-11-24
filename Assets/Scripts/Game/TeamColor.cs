@@ -16,6 +16,9 @@ public static class ExTeamColor {
     }
 
     public static TeamColor GetOpponentColor(TeamColor color) {
+        if (color == TeamColor.NONE)
+            return TeamColor.NONE;
+            
         TeamColor opponentColor = (color == TeamColor.RED) ? TeamColor.BLUE : TeamColor.RED;
         return opponentColor;
     }

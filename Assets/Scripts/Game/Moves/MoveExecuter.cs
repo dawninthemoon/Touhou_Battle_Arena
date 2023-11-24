@@ -5,50 +5,68 @@ using Moves;
 using Cysharp.Threading.Tasks;
 
 public class MoveExecuter : MonoBehaviour {
-    private struct RequestedMoveConfig {
-        public TeamColor player;
-        public MoveConfig[] moves;
-        public RequestedMoveConfig(TeamColor p, MoveConfig[] m) {
-            player = p;
-            moves = m;
-        }
-    }
-
     [SerializeField] private MoveDataContainer _container;
     [SerializeField] private GridControl _gridControl;
     [SerializeField] private CharacterControl _characterControl;
+    [SerializeField] private MoveButtonControl _moveButtonControl;
     private SharedData _sharedData;
-    private int _requestesOnQueue;
-    private RequestedMoveConfig[] _requestedMoveConfigs;
+    private Dictionary<TeamColor, MoveConfig[]> _requestedMoveConfigs;
+    private TeamColor _preferenceColor;
     
     private void Awake() {
         _sharedData = new SharedData(_gridControl, _characterControl);
-        _requestedMoveConfigs = new RequestedMoveConfig[2];
+        _requestedMoveConfigs = new Dictionary<TeamColor, MoveConfig[]>();
+        _preferenceColor = TeamColor.BLUE;
     }
 
     public void ExecuteAll(TeamColor player, MoveConfig[] moves) {
-        _requestedMoveConfigs[_requestesOnQueue++] = new RequestedMoveConfig(player, moves);
+        _requestedMoveConfigs.Add(player, moves);
 
-        if (_requestesOnQueue == 2) {
+        if (_requestedMoveConfigs.Count == 2) {
             ExecuteAll().Forget();
         }
     }
 
     private async UniTaskVoid ExecuteAll() {
-        _requestesOnQueue = 0;
-
         for (int phase = 0; phase < MoveSlot.MaxSlots; ++phase) {
-            for (int playerIdx = 0; playerIdx < 2; ++playerIdx) {
-                TeamColor player = _requestedMoveConfigs[playerIdx].player;
-                MoveConfig[] moves = _requestedMoveConfigs[playerIdx].moves;
-
-                MoveBase instance = _container.GetMoveInstance(moves[phase].moveID);
-                if (instance != null) {
-                    int index = moves[phase].executionAreaIndex;
-                    Rowcol origin = moves[phase].origin;
-                    await instance.Execute(player, index, origin, _sharedData);
-                }
+            TeamColor player = CompareSpellSpeeds(phase);
+            if (player == TeamColor.NONE) {
+                player = _preferenceColor;
             }
+            
+            await ExecuteMove(player, phase);
+            await ExecuteMove(ExTeamColor.GetOpponentColor(player), phase);
         }
+
+        _preferenceColor = ExTeamColor.GetOpponentColor(_preferenceColor);
+        _requestedMoveConfigs.Clear();
+        _moveButtonControl.SetButtonInteraction(true);
+    }
+
+    private async UniTask ExecuteMove(TeamColor player, int phase) {
+        MoveConfig move = _requestedMoveConfigs[player][phase];
+
+        MoveBase instance = _container.GetMoveInstance(move.moveID);
+        if (instance != null) {
+            int index = move.executionAreaIndex;
+            Rowcol origin = move.origin;
+            await instance.Execute(player, index, origin, _sharedData);
+        }
+    }
+
+    private TeamColor CompareSpellSpeeds(int phase) {
+        MoveConfig blueMove = _requestedMoveConfigs[TeamColor.BLUE][phase];
+        MoveConfig redMove = _requestedMoveConfigs[TeamColor.RED][phase];
+
+        MoveBase blueInstance = _container.GetMoveInstance(blueMove.moveID);
+        MoveBase redInstance = _container.GetMoveInstance(redMove.moveID);
+
+        if (blueInstance.Info.spellSpeed > redInstance.Info.spellSpeed) {
+            return TeamColor.BLUE;
+        }
+        else if (blueInstance.Info.spellSpeed < redInstance.Info.spellSpeed) {
+            return TeamColor.RED;
+        }
+        return TeamColor.NONE;
     }
 }
