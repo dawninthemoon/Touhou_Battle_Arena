@@ -37,6 +37,17 @@ public class CharacterControl : MonoBehaviour {
         );
     }
 
+    private void Update() {
+        if (_myCharacter.gameObject.activeSelf && _opponentCharacter.gameObject.activeSelf) {
+            int myCharacterColumn = _myCharacter.Curr.column;
+            int opponentCharacterColumn = _opponentCharacter.Curr.column;
+
+            if (myCharacterColumn != opponentCharacterColumn) {
+                UpdateCharactersFlip(myCharacterColumn, opponentCharacterColumn);
+            }
+        }
+    }
+
     public void PlaceCharacter(TeamColor player, Rowcol rowcol) {
         Vector3 position = _gridControl.RowcolToPoint(rowcol);
         position.y += 12f;
@@ -46,6 +57,10 @@ public class CharacterControl : MonoBehaviour {
         _gridControl.OnObjectMoved(player, character, character.Curr, rowcol);
         character.MoveImmediate(position, rowcol);
         character.gameObject.SetActive(true);
+
+        if (_myCharacter.gameObject.activeSelf && _opponentCharacter.gameObject.activeSelf) {
+            UpdateCharactersFlip(_myCharacter.Curr.column, _myCharacter.Curr.column);
+        }
     }
 
     public void MoveCharacter(TeamColor player, Rowcol rowcol) {
@@ -54,7 +69,6 @@ public class CharacterControl : MonoBehaviour {
         Rowcol target = character.Curr + rowcol;
         Vector3 position = _gridControl.RowcolToPoint(target);
         position.y += 12f;
-
         
         _gridControl.OnObjectMoved(player, character, character.Curr, target);
         character.MoveImmediate(position, target);
@@ -71,5 +85,11 @@ public class CharacterControl : MonoBehaviour {
             character.OnCharacterDead();
             _moveButtonControl.SetButtonInteraction(false);
         }
+    }
+
+    private void UpdateCharactersFlip(int myCharacterColumn, int opponentCharacterColumn) {
+        bool flipX = (myCharacterColumn - opponentCharacterColumn) > 0;
+        _myCharacter.SetFlipX(flipX);
+        _opponentCharacter.SetFlipX(!flipX);
     }
 }
