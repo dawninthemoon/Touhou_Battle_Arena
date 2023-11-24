@@ -1112,7 +1112,7 @@ GameObject:
   - component: {fileID: 889809106}
   - component: {fileID: 889809105}
   m_Layer: 5
-  m_Name: TurnEndButton
+  m_Name: DecideButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1868,7 +1868,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gridControl: {fileID: 1897323670}
   _reimuPrefab: {fileID: 2547235440972161617, guid: 60845fcf575319b45a89bfb8f7258718, type: 3}
-  _marisaPrefab: {fileID: 5435719276892272653, guid: 4b96ad7c7493c4e449a2985a067742b8, type: 3}
+  _characterUIControl: {fileID: 0}
+  _moveButtonControl: {fileID: 0}
 --- !u!1 &1493191552
 GameObject:
   m_ObjectHideFlags: 0
@@ -2039,6 +2040,7 @@ MonoBehaviour:
   _selector: {fileID: 895166788}
   _moveButtonControl: {fileID: 1673060579}
   _characterControl: {fileID: 1380223867}
+  _gridControl: {fileID: 0}
 --- !u!1 &1673060576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,6 +2106,7 @@ MonoBehaviour:
   _downArrow: {fileID: 1793531465}
   _rightArrow: {fileID: 754756952}
   _leftArrow: {fileID: 455360753}
+  _decideButton: {fileID: 0}
 --- !u!1 &1793531461
 GameObject:
   m_ObjectHideFlags: 0
