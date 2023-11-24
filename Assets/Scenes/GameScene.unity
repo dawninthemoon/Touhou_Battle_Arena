@@ -1310,7 +1310,7 @@ GameObject:
   - component: {fileID: 889809106}
   - component: {fileID: 889809105}
   m_Layer: 5
-  m_Name: TurnEndButton
+  m_Name: DecideButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2624,7 +2624,7 @@ MonoBehaviour:
   _downArrow: {fileID: 1793531465}
   _rightArrow: {fileID: 754756952}
   _leftArrow: {fileID: 455360753}
-  _decideButton: {fileID: 0}
+  _decideButton: {fileID: 889809105}
 --- !u!1 &1793531461
 GameObject:
   m_ObjectHideFlags: 0
