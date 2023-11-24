@@ -5,7 +5,8 @@ using UnityEngine;
 public class CharacterControl : MonoBehaviour {
     [SerializeField] private GridControl _gridControl;
     [SerializeField, Tooltip("Temp Option")] private CharacterTest _reimuPrefab;
-    [SerializeField, Tooltip("Temp Option")] private CharacterTest _marisaPrefab;
+    [SerializeField] private CharacterUIControl _characterUIControl;
+    [SerializeField] private MoveButtonControl _moveButtonControl;
     private CharacterTest _myCharacter;
     private CharacterTest _opponentCharacter;
     public Rowcol MyCharacterRowcol { get { return _myCharacter.Curr; } }
@@ -19,13 +20,30 @@ public class CharacterControl : MonoBehaviour {
         _opponentCharacter.gameObject.SetActive(false);
     }
 
+    private void Start() {
+        _myCharacter.Initialize(
+            PlayerMoveReceiver.MyColor,
+            100,
+            () => {
+                OnReceiveDamage(_myCharacter);
+            }
+        );
+        _opponentCharacter.Initialize(
+            PlayerMoveReceiver.OpponentColor,
+            100,
+            () => {
+                OnReceiveDamage(_opponentCharacter);
+            }
+        );
+    }
+
     public void PlaceCharacter(TeamColor player, Rowcol rowcol) {
         Vector3 position = _gridControl.RowcolToPoint(rowcol);
         position.y += 12f;
 
         var character = GetCharacterByColor(player);
         
-        _gridControl.OnObjectMoved(character.gameObject, character.Curr, rowcol);
+        _gridControl.OnObjectMoved(player, character, character.Curr, rowcol);
         character.MoveImmediate(position, rowcol);
         character.gameObject.SetActive(true);
     }
@@ -38,7 +56,7 @@ public class CharacterControl : MonoBehaviour {
         position.y += 12f;
 
         
-        _gridControl.OnObjectMoved(character.gameObject, character.Curr, target);
+        _gridControl.OnObjectMoved(player, character, character.Curr, target);
         character.MoveImmediate(position, target);
         character.gameObject.SetActive(true);
     }
@@ -46,5 +64,13 @@ public class CharacterControl : MonoBehaviour {
     // 후에 네트워크 있으면 수정 필요
     public CharacterTest GetCharacterByColor(TeamColor color) {
         return (color == PlayerMoveReceiver.MyColor) ? _myCharacter : _opponentCharacter;
+    }
+
+    private void OnReceiveDamage(CharacterTest character) {
+        _characterUIControl.OnReceiveDamage(character);
+        if (character.Health == 0) {
+            character.gameObject.SetActive(false);
+            _moveButtonControl.SetButtonInteraction(false);
+        }
     }
 }

@@ -19,5 +19,12 @@ namespace Moves {
             return _executionAreas;
         }
         public abstract UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData);
+    
+        protected void DamageAt(TeamColor color, Rowcol target, int damage, GridControl gridControl) {
+            GridObject obj = gridControl.GetObject(TeamColor.NONE, target);
+            GridObject obj2 = gridControl.GetObject(ExTeamColor.GetOpponentColor(color), target);
+            obj?.ReceiveDamage(damage);
+            obj2?.ReceiveDamage(damage);
+        }
     }
 }

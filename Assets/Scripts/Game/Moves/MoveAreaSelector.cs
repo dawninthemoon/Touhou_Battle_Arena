@@ -119,7 +119,7 @@ public class MoveAreaSelector : MonoBehaviour {
         Rowcol origin = _isRelativeForCharacter ? _casterPosition : curr;
         _executionAreas = null;
         UpdateGridMarkers();
-        _gridControl.RemoveAllHighlights();
+        _gridControl.RemoveAllHighlightsExcept(PlayerMoveReceiver.MyColor);
 
         return (_selectedAreaIndex, origin);
     }
@@ -132,7 +132,7 @@ public class MoveAreaSelector : MonoBehaviour {
                 Rowcol target = isRelativeForCharacter ? _casterPosition + rc : rc + curr;
 
                 _gridControl.HighlightTile(target);
-                _gridControl.HighlightObject(target);
+                _gridControl.HighlightObject(PlayerMoveReceiver.MyColor, target);
             }
         }
     }
@@ -143,7 +143,7 @@ public class MoveAreaSelector : MonoBehaviour {
             foreach (Rowcol rc in executionAreas[i].Rowcols) {
                 Rowcol target = isRelativeForCharacter ? _casterPosition + rc : rc + _prevMouseRowcol;
                 _gridControl.RemoveHighlightTile(target);
-                _gridControl.RemoveHighlightObject(target);
+                _gridControl.RemoveHighlightObject(PlayerMoveReceiver.MyColor, target);
             }
         }
     }

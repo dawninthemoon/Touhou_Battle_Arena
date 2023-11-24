@@ -10,11 +10,21 @@ public class GridControl : MonoBehaviour {
     [SerializeField, Tooltip("Temp Option")] private TileObject _tileObject;
 
     private IsometricGrid<TileObject> _tileGrid;
-    private IsometricGrid<GameObject> _objectGrid;
+    private IsometricGrid<GridObject>[] _objectGridArray;
 
     private void Awake() {
+        InitializeGrid();
+    }
+
+    private void InitializeGrid() {
         _tileGrid = new IsometricGrid<TileObject>(_width, _height, _gridOrigin, _ceilSize);
-        _objectGrid = new IsometricGrid<GameObject>(_width, _height, _gridOrigin, _ceilSize);
+        _objectGridArray = new IsometricGrid<GridObject>[3];
+        _objectGridArray[(int)TeamColor.NONE] 
+            = new IsometricGrid<GridObject>(_width, _height, _gridOrigin, _ceilSize);
+        _objectGridArray[(int)TeamColor.BLUE] 
+            = new IsometricGrid<GridObject>(_width, _height, _gridOrigin, _ceilSize);
+        _objectGridArray[(int)TeamColor.RED] 
+            = new IsometricGrid<GridObject>(_width, _height, _gridOrigin, _ceilSize);
     }
 
     private void Start() {
@@ -55,29 +65,62 @@ public class GridControl : MonoBehaviour {
         tileObj?.RemoveHighlight();
     }
 
-    public void HighlightObject(Rowcol rowcol) {
-        var obj = _objectGrid.GetElement(rowcol);
+    public GridObject GetObject(TeamColor color, Rowcol rowcol) {
+        return GetObjectGridByColor(color).GetElement(rowcol);
+    }
+
+    public void HighlightObject(TeamColor color, Rowcol rowcol) {
+        var obj = GetObjectGridByColor(color).GetElement(rowcol);
         obj?.GetComponent<SpriteRenderer>().material.SetFloat("_ApplyAmount", 1f);
     }
 
-    public void RemoveHighlightObject(Rowcol rowcol) {
-        var obj = _objectGrid.GetElement(rowcol);
+    public void HighlightObjectExcept(TeamColor exceptColor, Rowcol rowcol) {
+        for (int colorInt = (int)TeamColor.NONE; colorInt < (int)TeamColor.COUNT; ++colorInt) {
+            if ((TeamColor)colorInt == exceptColor)
+                continue;
+            HighlightObject((TeamColor)colorInt, rowcol);
+        }
+    }
+
+    public void RemoveHighlightObject(TeamColor color, Rowcol rowcol) {
+        var obj = GetObjectGridByColor(color).GetElement(rowcol);
         obj?.GetComponent<SpriteRenderer>().material.SetFloat("_ApplyAmount", 0f);
     }
 
-    public void RemoveAllHighlights() {
+    public void RemoveHighlightObjectExcept(TeamColor exceptColor, Rowcol rowcol) {
+        for (int colorInt = (int)TeamColor.NONE; colorInt < (int)TeamColor.COUNT; ++colorInt) {
+            if ((TeamColor)colorInt == exceptColor)
+                continue;
+            RemoveHighlightObject((TeamColor)colorInt, rowcol);
+        }
+    }
+
+    public void RemoveAllHighlights(TeamColor color) {
         for (int row = 0; row < _height; ++row) {
             for (int col = 0; col < _width; ++col) {
                 _tileGrid.GetElement(row, col)?.RemoveHighlight();
-                _objectGrid.GetElement(row, col)?.GetComponent<SpriteRenderer>().material.SetFloat("_ApplyAmount", 0f);
+                GetObjectGridByColor(color).GetElement(row, col)?.GetComponent<SpriteRenderer>().material.SetFloat("_ApplyAmount", 0f);
             }
         }
     }
 
+    public void RemoveAllHighlightsExcept(TeamColor exceptColor) {
+        for (int colorInt = (int)TeamColor.NONE; colorInt < (int)TeamColor.COUNT; ++colorInt) {
+            if ((TeamColor)colorInt == exceptColor)
+                continue;
+            RemoveAllHighlights((TeamColor)colorInt);
+        }
+    }
+
     // 수정 필요: 오브젝트가 둘 이상 있을 때
-    public void OnObjectMoved(GameObject obj, Rowcol from, Rowcol to) {
-        _objectGrid.SetElement(to, obj);
-        _objectGrid.SetElement(from, null);
+    public void OnObjectMoved(TeamColor color, GridObject obj, Rowcol from, Rowcol to) {
+        GetObjectGridByColor(color).SetElement(to, obj);
+        GetObjectGridByColor(color).SetElement(from, null);
+    }
+
+    private IsometricGrid<GridObject> GetObjectGridByColor(TeamColor color) {
+        int colorInt = (int)color;
+        return _objectGridArray[colorInt];
     }
 
     private void OnDrawGizmos() {

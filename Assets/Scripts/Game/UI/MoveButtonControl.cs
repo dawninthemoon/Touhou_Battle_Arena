@@ -42,7 +42,7 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
         foreach (MoveBase instance in skillInstances) {
             int buttonIndex = instance.Info.buttonIndex;
             _skillButtons[buttonIndex].AddListener(() => OnButtonClicked(instance.Info.moveID).Forget());
-            _skillButtons[buttonIndex].GetComponent<Image>().sprite = _skillIconDictionary[instance.Info.moveID];
+            _skillButtons[buttonIndex].SetSprite(_skillIconDictionary[instance.Info.moveID]);
         }
     }
 
@@ -61,5 +61,13 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
 
     private void MovementSelected(int areaIndex) {
         _moveSlot.RequestExecuteMovement(Move_Movement.MoveID, areaIndex);
+    }
+
+    public void SetButtonInteraction(bool interactable) {
+        foreach (var skillButton in _skillButtons) {
+            skillButton.SetInteraction(interactable);
+        }
+        _upArrow.interactable = _downArrow.interactable = _leftArrow.interactable = _rightArrow.interactable
+            = interactable;
     }
 }

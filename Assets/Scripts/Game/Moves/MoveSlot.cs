@@ -18,10 +18,11 @@ public class MoveSlot : MonoBehaviour {
     private int _currentSlotTop;
 
     private void Awake() {
-        var reciver = PhotonNetwork.Instantiate("PlayerMoveReceiver", Vector3.zero, Quaternion.identity);
-        _playerMoveReceiver = reciver.GetComponent<PlayerMoveReceiver>();
-
         _requestedMoves = new MoveConfig[MaxSlots];
+    }
+
+    private void Start() {
+        _playerMoveReceiver = FindAnyObjectByType<PlayerMoveReceiver>();
     }
 
     public async UniTask<int> RequestExecuteAsync(string moveID) {
@@ -30,7 +31,11 @@ public class MoveSlot : MonoBehaviour {
         }
         MoveBase instance = _container.GetMoveInstance(moveID);
         bool isRelative = instance.Info.isRelativeForCharacter;
-        (int, Rowcol) result = await _selector.SelectExecutionArea(instance.GetExecutionArea(), isRelative, GetCharacterRowcol());
+        (int, Rowcol) result = await _selector.SelectExecutionArea(
+            instance.GetExecutionArea(),
+            isRelative,
+            GetCharacterRowcol()
+        );
         
         _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, result.Item1, result.Item2);
         return _currentSlotTop - 1;

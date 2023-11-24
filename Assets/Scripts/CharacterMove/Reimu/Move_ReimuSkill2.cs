@@ -5,6 +5,8 @@ using Cysharp.Threading.Tasks;
 
 namespace Moves {
     public class Move_ReimuSkill2 : MoveBase {
+        private static readonly string DamageVariableKey = "d1";
+
         public Move_ReimuSkill2(MoveInfo info) : base(info) {
             InitializeExecutionArea();
         }
@@ -22,10 +24,13 @@ namespace Moves {
 
         public override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
+            int damage = int.Parse(Info.variables[DamageVariableKey][0]);
+
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
+                DamageAt(caster, target, damage, sharedData.GridCtrl);
                 sharedData.GridCtrl.HighlightTile(target);
-                sharedData.GridCtrl.HighlightObject(target);
+                sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }
 
             await UniTask.Delay(System.TimeSpan.FromSeconds(0.25));
@@ -33,7 +38,7 @@ namespace Moves {
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 sharedData.GridCtrl.RemoveHighlightTile(target);
-                sharedData.GridCtrl.RemoveHighlightObject(target);
+                sharedData.GridCtrl.RemoveHighlightObjectExcept(caster, target);
             }
         }
     }

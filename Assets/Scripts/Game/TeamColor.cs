@@ -4,8 +4,9 @@ using UnityEngine;
 
 public enum TeamColor {
     NONE,
+    BLUE,
     RED,
-    BLUE
+    COUNT
 }
 
 public static class ExTeamColor {

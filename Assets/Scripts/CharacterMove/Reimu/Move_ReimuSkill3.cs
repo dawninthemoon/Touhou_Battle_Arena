@@ -23,7 +23,7 @@ namespace Moves {
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 sharedData.GridCtrl.HighlightTile(target);
-                sharedData.GridCtrl.HighlightObject(target);
+                sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }
 
             await UniTask.Delay(System.TimeSpan.FromSeconds(0.25));
@@ -31,7 +31,7 @@ namespace Moves {
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 sharedData.GridCtrl.RemoveHighlightTile(target);
-                sharedData.GridCtrl.RemoveHighlightObject(target);
+                sharedData.GridCtrl.RemoveHighlightObjectExcept(caster, target);
             }
         }
     }

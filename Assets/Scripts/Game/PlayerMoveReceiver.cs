@@ -12,22 +12,23 @@ public class PlayerMoveReceiver : MonoBehaviour {
     private MoveExecuter _executer;
     public static TeamColor MyColor;
     public static TeamColor OpponentColor;
+    private static Dictionary<TeamColor, Rowcol> InitialRowcolDictionary;
 
     private void Awake() {
         _pv = GetComponent<PhotonView>();
-        Serializer.RegisterCustomType<Moves.MoveConfig>((byte)'A');
-
+        Serializer.RegisterCustomType<MoveConfig>((byte)'A');
         _executer = FindObjectOfType<MoveExecuter>();
+        InitialRowcolDictionary = new Dictionary<TeamColor, Rowcol>();
+
+        InitializeTeamColor();
     }
 
-    private void Start() {
+    private void InitializeTeamColor() {
         string teamColorID = "TeamColor";
-        Debug.Log(PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(teamColorID) + ", " +_pv.IsMine);
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(teamColorID)) {
             if (_pv.IsMine) {
                 MyColor = (TeamColor)PhotonNetwork.LocalPlayer.CustomProperties[teamColorID];
                 OpponentColor = ExTeamColor.GetOpponentColor(MyColor);
-                Debug.Log(MyColor + ", " + OpponentColor);
             }
         }
     }
@@ -40,5 +41,22 @@ public class PlayerMoveReceiver : MonoBehaviour {
     private void ExecuteMoves(byte caster, MoveConfig[] moves) {
         TeamColor casterColor = (TeamColor)caster;
         _executer.ExecuteAll(casterColor, moves);
+    }
+
+    public bool CheckInitializeCompleted(TeamColor color) {
+        return InitialRowcolDictionary.TryGetValue(color, out Rowcol value);
+    }
+
+    public Rowcol GetInitialRowcol(TeamColor color) {
+        return InitialRowcolDictionary[color];
+    }
+
+    public void InitialSelectComplete(TeamColor color, Rowcol initialRowcol) {
+        _pv.RPC("InitialSelectComplete", RpcTarget.All, (byte)color, initialRowcol.row, initialRowcol.column);
+    }
+
+    [PunRPC]
+    private void InitialSelectComplete(byte color, int row, int col) {
+        InitialRowcolDictionary.Add((TeamColor)color, new Rowcol(row, col));
     }
 }
