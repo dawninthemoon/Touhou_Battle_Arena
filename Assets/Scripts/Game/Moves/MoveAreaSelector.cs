@@ -115,17 +115,19 @@ public class MoveAreaSelector : MonoBehaviour {
 
         await UniTask.WaitUntil(() => Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1));
 
+        (int, Rowcol) result;
         if (Input.GetMouseButtonDown(0)) {
             Rowcol curr = _gridControl.PointToRowcol(ExMouse.GetMouseWorldPosition());
             Rowcol origin = _isRelativeForCharacter ? _casterPosition : curr;
-            _executionAreas = null;
-            UpdateGridMarkers();
-            _gridControl.RemoveAllHighlightsExcept(PlayerMoveReceiver.MyColor);
-            return (_selectedAreaIndex, origin);
+            result = (_selectedAreaIndex, origin);
         }
         else {
-            return (-1, Rowcol.Zero);
+            result = (-1, Rowcol.Zero);
         }
+        _executionAreas = null;
+        UpdateGridMarkers();
+        _gridControl.RemoveAllHighlightsExcept(PlayerMoveReceiver.MyColor);
+        return result;
     }
     
     private void ShowExecutionAreas(List<ExecutionArea> executionAreas, bool isRelativeForCharacter) {
