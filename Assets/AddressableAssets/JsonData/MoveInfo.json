@@ -20,7 +20,7 @@
     "SpellSpeed": 1,
     "Description": null,
     "IsRelativeForCharacter": true,
-    "Variables": "d1(15)",
+    "Variables": "d1(15):payback(20)",
     "ButtonIndex": 0
   },
   {

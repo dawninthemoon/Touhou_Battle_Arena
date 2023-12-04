@@ -6,6 +6,7 @@ using Cysharp.Threading.Tasks;
 namespace Moves {
     public class Move_ReimuBasicAttack : MoveBase {
         private static readonly string DamageVariableKey = "d1";
+        private static readonly string PaybackAmountKey = "payback";
 
         public Move_ReimuBasicAttack(MoveInfo info) : base(info) {
             InitializeExecutionArea();
@@ -36,13 +37,21 @@ namespace Moves {
         public override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             int damage = int.Parse(Info.variables[DamageVariableKey][0]);
-            
+            int paybackAmount = int.Parse(Info.variables[PaybackAmountKey][0]);
+
+            bool enemyHit = false;
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
 
-                AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
+                bool hit = AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
+                if (hit) {
+                    enemyHit = hit;
+                }
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
+            }
+            if (enemyHit) {
+                sharedData.CharcaterCtrl.GainEnergy(paybackAmount, caster);
             }
 
             await UniTask.Delay(System.TimeSpan.FromSeconds(0.5));

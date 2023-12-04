@@ -10,6 +10,7 @@ public class CharacterControl : MonoBehaviour {
     private PlayerCharacter _myCharacter;
     private PlayerCharacter _opponentCharacter;
     public Rowcol MyCharacterRowcol { get { return _myCharacter.Curr; } }
+    public int MyCharacterEnergy { get { return _myCharacter.Energy; } }
 
     private void Awake() {
         _myCharacter = Instantiate(_reimuPrefab);
@@ -46,6 +47,28 @@ public class CharacterControl : MonoBehaviour {
                 UpdateCharactersFlip(myCharacterColumn, opponentCharacterColumn);
             }
         }
+    }
+
+    public void GainEnergy(int amount) {
+        _myCharacter.Energy += amount;
+        _characterUIControl.OnEnergyChanged(_myCharacter);
+    }
+
+    public void GainEnergy(int amount, TeamColor color) {
+        PlayerCharacter character = GetCharacterByColor(color);
+        character.Energy += amount;
+        _characterUIControl.OnEnergyChanged(character);
+    }
+
+    public void UseEnergy(int cost) {
+        _myCharacter.Energy -= cost;
+        _characterUIControl.OnEnergyChanged(_myCharacter);
+    }
+
+    public void UseEnergy(int cost, TeamColor color) {
+        PlayerCharacter character = GetCharacterByColor(color);
+        character.Energy -= cost;
+        _characterUIControl.OnEnergyChanged(character);
     }
 
     public void PlaceCharacter(TeamColor player, Rowcol rowcol) {

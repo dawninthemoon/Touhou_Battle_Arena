@@ -36,12 +36,21 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
     }
 
     private async UniTaskVoid Start() {
+        InitializeSlots();
+
         await UniTask.WaitUntil(() => _moveDataContainer.IsLoadCompleted && this.IsLoadCompleted);
 
-        Initialize(_moveDataContainer.GetMoveInstancesByCharacter("Reimu"));
+        InitializeSkillButtons(_moveDataContainer.GetMoveInstancesByCharacter("Reimu"));
     }
 
-    public void Initialize(MoveBase[] skillInstances) {
+    private void InitializeSlots() {
+        foreach (var slot in _slotImages) {
+            Button slotButton = slot.GetComponent<Button>();
+            slotButton.onClick.AddListener(() => _moveSlot.ReSelectSlot());
+        }
+    }
+
+    public void InitializeSkillButtons(MoveBase[] skillInstances) {
         foreach (MoveBase instance in skillInstances) {
             int buttonIndex = instance.Info.buttonIndex;
             _skillButtons[buttonIndex].AddListener(() => OnButtonClicked(instance.Info.moveID).Forget());

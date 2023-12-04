@@ -20,7 +20,9 @@ namespace Moves {
         }
         public abstract UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData);
     
-        protected void AttackAt(TeamColor color, Rowcol target, int damage, GridControl gridControl, CharacterControl characterControl) {
+        protected bool AttackAt(TeamColor color, Rowcol target, int damage, GridControl gridControl, CharacterControl characterControl) {
+            bool enemyHit = false;
+
             GridObject obj = gridControl.GetObject(TeamColor.NONE, target);
             GridObject obj2 = gridControl.GetObject(ExTeamColor.GetOpponentColor(color), target);
 
@@ -28,10 +30,16 @@ namespace Moves {
             character.OnCharacterAttack();
 
             obj?.ReceiveDamage(damage);
-            obj2?.ReceiveDamage(damage);
+            if (obj2 != null) {
+                obj2.ReceiveDamage(damage);
+                characterControl.GainEnergy(Info.cost / 2, color);
+                enemyHit = true;
+            }
+            return enemyHit;
         }
 
-        public void AttackAtWithTriggerName(TeamColor color, Rowcol target, int damage, GridControl gridControl, CharacterControl characterControl, string triggerName) {
+        public bool AttackAtWithTriggerName(TeamColor color, Rowcol target, int damage, GridControl gridControl, CharacterControl characterControl, string triggerName) {
+            bool enemyHit = false;
             GridObject obj = gridControl.GetObject(TeamColor.NONE, target);
             GridObject obj2 = gridControl.GetObject(ExTeamColor.GetOpponentColor(color), target);
 
@@ -39,7 +47,13 @@ namespace Moves {
             character.SetTrigger(triggerName);
 
             obj?.ReceiveDamage(damage);
-            obj2?.ReceiveDamage(damage);
+
+            if (obj2 != null) {
+                obj2.ReceiveDamage(damage);
+                characterControl.GainEnergy(Info.cost / 2, color);
+                enemyHit = true;
+            }
+            return enemyHit;
         }
     }
 }

@@ -16,6 +16,7 @@ public class MoveSlot : MonoBehaviour {
     private MoveConfig[] _requestedMoves;
     public static readonly int MaxSlots = 3;
     private int _currentSlotTop;
+    private int _usedEnergies;
 
     private void Awake() {
         _requestedMoves = new MoveConfig[MaxSlots];
@@ -30,18 +31,24 @@ public class MoveSlot : MonoBehaviour {
             return -1;
         }
         MoveBase instance = _container.GetMoveInstance(moveID);
-        bool isRelative = instance.Info.isRelativeForCharacter;
-        (int, Rowcol) result = await _selector.SelectExecutionArea(
-            instance.GetExecutionArea(),
-            isRelative,
-            GetCharacterRowcol()
-        );
 
-        if (result.Item1 == -1) {
-            return -1;
+        if (_characterControl.MyCharacterEnergy >= instance.Info.cost) {
+            _characterControl.UseEnergy(instance.Info.cost);
+            _usedEnergies += instance.Info.cost;
+
+            bool isRelative = instance.Info.isRelativeForCharacter;
+            (int, Rowcol) result = await _selector.SelectExecutionArea(
+                instance.GetExecutionArea(),
+                isRelative,
+                GetCharacterRowcol()
+            );
+
+            if (result.Item1 != -1) {
+                _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, result.Item1, result.Item2);
+                return _currentSlotTop - 1;
+            }
         }
-        _requestedMoves[_currentSlotTop++] = new MoveConfig(instance.Info.moveID, result.Item1, result.Item2);
-        return _currentSlotTop - 1;
+        return -1;
     }
 
     public void RequestExecuteMovement(string moveID, int areaIndex) {
@@ -71,9 +78,15 @@ public class MoveSlot : MonoBehaviour {
     }
 
     public void ResetSlot() {
+        _characterControl.GainEnergy(_usedEnergies);
+        _usedEnergies = 0;
         _currentSlotTop = 0;
         _selector.RemoveAllIllusions();
         _moveButtonControl.RemoveSlotImages();
+    }
+
+    public void ReSelectSlot() {
+        ResetSlot();
     }
 
     private Rowcol GetCharacterRowcol() {
