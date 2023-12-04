@@ -68,7 +68,7 @@
     "SpellSpeed": 1,
     "Description": null,
     "IsRelativeForCharacter": false,
-    "Variables": "d1(30):d2(15)",
+    "Variables": "d1(30):d2(15):at(ultimate)",
     "ButtonIndex": 4
   }
 ]

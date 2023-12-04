@@ -7,6 +7,7 @@ namespace Moves {
     public class Move_ReimuUltimate : MoveBase {
         private static readonly string DamageVariableKey = "d1";
         private static readonly string DamageVariable2Key = "d2";
+        private static readonly string AnimTriggerKey = "at";
 
         public Move_ReimuUltimate(MoveInfo info) : base(info) {
             InitializeExecutionArea();
@@ -30,7 +31,14 @@ namespace Moves {
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 int finalDamage = rc.Equals(Rowcol.Zero) ? damage2 : damage1;
-                AttackAt(caster, target, finalDamage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
+                AttackAtWithTriggerName(
+                    caster,
+                    target, 
+                    finalDamage, 
+                    sharedData.GridCtrl, 
+                    sharedData.CharcaterCtrl,
+                    Info.variables[AnimTriggerKey][0]
+                );
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }

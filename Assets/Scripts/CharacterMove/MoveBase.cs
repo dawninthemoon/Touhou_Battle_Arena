@@ -30,5 +30,16 @@ namespace Moves {
             obj?.ReceiveDamage(damage);
             obj2?.ReceiveDamage(damage);
         }
+
+        public void AttackAtWithTriggerName(TeamColor color, Rowcol target, int damage, GridControl gridControl, CharacterControl characterControl, string triggerName) {
+            GridObject obj = gridControl.GetObject(TeamColor.NONE, target);
+            GridObject obj2 = gridControl.GetObject(ExTeamColor.GetOpponentColor(color), target);
+
+            PlayerCharacter character = characterControl.GetCharacterByColor(color);
+            character.SetTrigger(triggerName);
+
+            obj?.ReceiveDamage(damage);
+            obj2?.ReceiveDamage(damage);
+        }
     }
 }
