@@ -11,7 +11,7 @@ public enum TeamColor {
 
 public static class ExTeamColor {
     public static TeamColor GetRandomColor() {
-        TeamColor c = (TeamColor)Random.Range((int)TeamColor.RED, (int)TeamColor.BLUE + 1);
+        TeamColor c = (TeamColor)Random.Range((int)TeamColor.BLUE, (int)TeamColor.RED + 1);
         return c;
     }
 
