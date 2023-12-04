@@ -41,6 +41,10 @@ public class MoveExecuter : MonoBehaviour {
         _preferenceColor = ExTeamColor.GetOpponentColor(_preferenceColor);
         _requestedMoveConfigs.Clear();
         _moveButtonControl.SetButtonInteraction(true);
+
+        // TODO: 수정
+        _characterControl.GainEnergy(20, TeamColor.BLUE);
+        _characterControl.GainEnergy(20, TeamColor.RED);
     }
 
     private async UniTask ExecuteMove(TeamColor player, int phase) {
