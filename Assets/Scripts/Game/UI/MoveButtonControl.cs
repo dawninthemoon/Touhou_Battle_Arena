@@ -46,14 +46,14 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
     private void InitializeSlots() {
         foreach (var slot in _slotImages) {
             Button slotButton = slot.GetComponent<Button>();
-            slotButton.onClick.AddListener(() => _moveSlot.ReSelectSlot());
+            slotButton.onClick.AddListener(() => _moveSlot.ResetSlot());
         }
     }
 
     public void InitializeSkillButtons(MoveBase[] skillInstances) {
         foreach (MoveBase instance in skillInstances) {
             int buttonIndex = instance.Info.buttonIndex;
-            _skillButtons[buttonIndex].AddListener(() => OnButtonClicked(instance.Info.moveID).Forget());
+            _skillButtons[buttonIndex].AddListener(() => OnButtonClicked(instance).Forget());
             _skillButtons[buttonIndex].SetSprite(_skillIconDictionary[instance.Info.moveID]);
         }
     }
@@ -64,10 +64,13 @@ public class MoveButtonControl : MonoBehaviour, ILoadable {
         }
     }
     
-    private async UniTaskVoid OnButtonClicked(string moveID) {
+    private async UniTaskVoid OnButtonClicked(MoveBase instance) {
+        string moveID = instance.Info.moveID;
+        int buttonIndex = instance.Info.buttonIndex;
         int slotIndex = await _moveSlot.RequestExecuteAsync(moveID);
         if (slotIndex != -1) {
             _slotImages[slotIndex].sprite = _skillIconDictionary[moveID];
+            _skillButtons[buttonIndex].SetInteraction(false);
         }
     }
 

@@ -83,10 +83,7 @@ public class MoveSlot : MonoBehaviour {
         _currentSlotTop = 0;
         _selector.RemoveAllIllusions();
         _moveButtonControl.RemoveSlotImages();
-    }
-
-    public void ReSelectSlot() {
-        ResetSlot();
+        _moveButtonControl.SetButtonInteraction(true);
     }
 
     private Rowcol GetCharacterRowcol() {
