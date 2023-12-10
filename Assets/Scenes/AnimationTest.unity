@@ -475,7 +475,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: d923b28c453a6994fb11b1636e2d8326, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eda20be5f06b90c45bd4db0083923df3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -532,7 +532,7 @@ TrailRenderer:
   m_PreviewTimeScale: 0
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 5
+    widthMultiplier: 3
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1096,7 +1096,6 @@ MonoBehaviour:
   - {fileID: 478468677}
   - {fileID: 1917888458}
   - {fileID: 1493633165}
-  _speed: 5
   _shot: 5
   _delay: 1
   _shotDelay: 0.1

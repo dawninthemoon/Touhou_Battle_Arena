@@ -9,7 +9,6 @@ namespace Test {
         [SerializeField] private BezierTest _missle;
         [SerializeField] private GameObject[] _targets;
 
-        [SerializeField] private float _speed = 5f;
         [SerializeField] private int _shot = 5;
         [SerializeField] private double _delay = 1.0;
         [SerializeField] private double _shotDelay = 0.1;

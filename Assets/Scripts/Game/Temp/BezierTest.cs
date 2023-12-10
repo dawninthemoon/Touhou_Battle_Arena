@@ -39,19 +39,11 @@ namespace Test {
         }
 
         private void DrawTrajectory() {
-            //Vector2 pos = Bezier.GetPoint(_points[0], _points[1], _points[2], _points[3], _t);
-            float x = GetPoint(_points[0].x, _points[1].x, _points[2].x, _points[3].x, _t);
-            float y = GetPoint(_points[0].y, _points[1].y, _points[2].y, _points[3].y, _t);
-            Vector2 pos = new Vector2(x, y);
+            Vector2 pos = Bezier.GetPoint(_points[0], _points[1], _points[2], _points[3], _t);
+            Vector3 derivative = Bezier.GetFirstDerivative(_points[0], _points[1], _points[2], _points[3], _t);
+            float radian = Mathf.Atan2(derivative.y, derivative.x);
+            transform.rotation = Quaternion.Euler(0f, 0f, radian * Mathf.Rad2Deg);
             transform.position = pos;
-        }
-
-        private float GetPoint(float a, float b, float c, float d, float t) {
-            float oneMinusT = Mathf.Clamp01(1f - t);
-            return Mathf.Pow(oneMinusT, 3f) * a
-                    + Mathf.Pow(oneMinusT, 2f) * 3f * t * b
-                    + Mathf.Pow(t, 2f) * 3f * oneMinusT * c
-                    + Mathf.Pow(t, 3f) * d;
         }
     }
 }
