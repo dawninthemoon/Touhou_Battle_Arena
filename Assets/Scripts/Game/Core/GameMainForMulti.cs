@@ -4,17 +4,16 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using Photon.Pun;
 
-public class GameMain : MonoBehaviour {
-
+public class GameMainForMulti : MonoBehaviour {
     [SerializeField] private GridControl _gridControl;
     [SerializeField] private CharacterControl _characterControl;
     [SerializeField] private GridSelector _gridSelector;
     [SerializeField] private MoveButtonControl _moveButtonControl;
-    private PlayerMoveReceiver _playerMoveReceiver;
+    private MultiplayMoveReceiver _playerMoveReceiver;
 
     private void Awake() {
-        var reciver = PhotonNetwork.Instantiate("PlayerMoveReceiver", Vector3.zero, Quaternion.identity);
-        _playerMoveReceiver = reciver.GetComponent<PlayerMoveReceiver>();
+        var reciver = PhotonNetwork.Instantiate("MultiplayMoveReceiver", Vector3.zero, Quaternion.identity);
+        _playerMoveReceiver = reciver.GetComponent<MultiplayMoveReceiver>();
     }
 
     private async UniTaskVoid Start() {

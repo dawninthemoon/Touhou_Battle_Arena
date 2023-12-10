@@ -2,22 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using RieslingUtils;
 using MSLIMA.Serializer;
 using Moves;
-using System.Linq;
 
-public class PlayerMoveReceiver : MonoBehaviour {
+public class MultiplayMoveReceiver : PlayerMoveReceiver {
     private PhotonView _pv;
-    private MoveExecuter _executer;
-    public static TeamColor MyColor {
-        get;
-        private set;
-    }
-    public static TeamColor OpponentColor {
-        get;
-        private set;
-    }
     private static Dictionary<TeamColor, Rowcol> InitialRowcolDictionary;
 
     private void Awake() {
@@ -29,12 +18,8 @@ public class PlayerMoveReceiver : MonoBehaviour {
         InitializeTeamColor();
     }
 
-    private void InitializeTeamColor() {
+    protected override void InitializeTeamColor() {
         string teamColorID = "TeamColor";
-        if (_pv == null) {
-            MyColor = TeamColor.BLUE;
-            OpponentColor = TeamColor.RED;
-        }
         if (PhotonNetwork.LocalPlayer.CustomProperties.ContainsKey(teamColorID)) {
             if (_pv.IsMine) {
                 MyColor = (TeamColor)PhotonNetwork.LocalPlayer.CustomProperties[teamColorID];
@@ -43,7 +28,7 @@ public class PlayerMoveReceiver : MonoBehaviour {
         }
     }
 
-    public void ExecuteMoves(MoveDataContainer container, MoveConfig[] moves) {
+    public override void ExecuteMoves(MoveDataContainer container, MoveConfig[] moves) {
         _pv.RPC("ExecuteMoves", RpcTarget.All, (byte)MyColor, moves);
     }
 
