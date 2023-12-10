@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-using MSLIMA.Serializer;
 using Moves;
 
 public abstract class PlayerMoveReceiver : MonoBehaviour {
@@ -17,5 +15,5 @@ public abstract class PlayerMoveReceiver : MonoBehaviour {
     }
 
     protected abstract void InitializeTeamColor();
-    public abstract void ExecuteMoves(MoveDataContainer container, MoveConfig[] moves);
+    public abstract void ExecuteMoves(MoveConfig[] moves);
 }

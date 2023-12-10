@@ -28,7 +28,7 @@ public class MultiplayMoveReceiver : PlayerMoveReceiver {
         }
     }
 
-    public override void ExecuteMoves(MoveDataContainer container, MoveConfig[] moves) {
+    public override void ExecuteMoves(MoveConfig[] moves) {
         _pv.RPC("ExecuteMoves", RpcTarget.All, (byte)MyColor, moves);
     }
 

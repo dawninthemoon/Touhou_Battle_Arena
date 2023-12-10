@@ -122,7 +122,7 @@ public class GridControl : MonoBehaviour {
 
     // TODO: 환경 타일 고려해서 수정
     public bool CanMoveTo(Rowcol to) {
-        return true;
+        return IsValidRowcol(to);
     }
 
     private IsometricGrid<GridObject> GetObjectGridByColor(TeamColor color) {

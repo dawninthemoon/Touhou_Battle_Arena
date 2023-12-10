@@ -3326,7 +3326,7 @@ GameObject:
   - component: {fileID: 1934773034}
   - component: {fileID: 1934773035}
   m_Layer: 0
-  m_Name: PlayerMoveReceiver
+  m_Name: SingleplayMoveReceiver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3518,7 +3518,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea024d85d466914a9b500ddff22fc3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerMoveReceiver: {fileID: 1934773035}
+  _container: {fileID: 831461842}
   _gridControl: {fileID: 933661289}
+  _characterControl: {fileID: 361057192}
 --- !u!1 &2033435774
 GameObject:
   m_ObjectHideFlags: 0

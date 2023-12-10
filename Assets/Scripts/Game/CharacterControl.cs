@@ -10,6 +10,7 @@ public class CharacterControl : MonoBehaviour {
     private PlayerCharacter _myCharacter;
     private PlayerCharacter _opponentCharacter;
     public Rowcol MyCharacterRowcol { get { return _myCharacter.Curr; } }
+    public Rowcol OpponentCharacterRowcol { get { return _opponentCharacter.Curr; } }
     public int MyCharacterEnergy { get { return _myCharacter.Energy; } }
 
     private void Awake() {

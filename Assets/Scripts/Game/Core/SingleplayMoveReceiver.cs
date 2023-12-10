@@ -5,6 +5,7 @@ using Moves;
 
 public class SingleplayMoveReceiver : PlayerMoveReceiver {
     private void Awake() {
+        _executer = FindObjectOfType<MoveExecuter>();
         InitializeTeamColor();
     }
 
@@ -13,7 +14,11 @@ public class SingleplayMoveReceiver : PlayerMoveReceiver {
         OpponentColor = TeamColor.RED;
     }
 
-    public override void ExecuteMoves(MoveDataContainer container, MoveConfig[] moves) {
+    public override void ExecuteMoves(MoveConfig[] moves) {
+        _executer.ExecuteAll(MyColor, moves);
+    }
 
+    public void ExecuteMoves(MoveConfig[] moves, TeamColor color) {
+        _executer.ExecuteAll(color, moves);
     }
 }

@@ -59,7 +59,7 @@ public class MoveSlot : MonoBehaviour {
         MoveBase instance = _container.GetMoveInstance(moveID);
         Rowcol destination = GetCharacterRowcol() + instance.GetExecutionArea()[areaIndex].Single();
 
-        if (!_gridControl.IsValidRowcol(destination)) {
+        if (!_gridControl.CanMoveTo(destination)) {
             return;
         }
 
@@ -74,7 +74,7 @@ public class MoveSlot : MonoBehaviour {
         ResetSlot();
 
         _moveButtonControl.SetButtonInteraction(false);
-        _playerMoveReceiver.ExecuteMoves(_container, _requestedMoves);
+        _playerMoveReceiver.ExecuteMoves(_requestedMoves);
     }
 
     public void ResetSlot() {
