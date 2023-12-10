@@ -12,6 +12,9 @@ public class GridControl : MonoBehaviour {
     private IsometricGrid<TileObject> _tileGrid;
     private IsometricGrid<GridObject>[] _objectGridArray;
 
+    public int Width { get { return _width; } }
+    public int Height { get { return _height; } }
+
     private void Awake() {
         InitializeGrid();
     }
@@ -112,10 +115,14 @@ public class GridControl : MonoBehaviour {
         }
     }
 
-    // 수정 필요: 오브젝트가 둘 이상 있을 때
     public void OnObjectMoved(TeamColor color, GridObject obj, Rowcol from, Rowcol to) {
         GetObjectGridByColor(color).SetElement(to, obj);
         GetObjectGridByColor(color).SetElement(from, null);
+    }
+
+    // TODO: 환경 타일 고려해서 수정
+    public bool CanMoveTo(Rowcol to) {
+        return true;
     }
 
     private IsometricGrid<GridObject> GetObjectGridByColor(TeamColor color) {

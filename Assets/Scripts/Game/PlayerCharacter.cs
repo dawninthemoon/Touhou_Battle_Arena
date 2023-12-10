@@ -12,7 +12,6 @@ public class PlayerCharacter : GridObject {
     }
     private static readonly string HitTriggerKey = "hit";
     private static readonly string DieTriggerKey = "die";
-    private static readonly string AttackTriggerKey = "attack";
     public static readonly int MaxEnergy = 100;
     public int Energy {
         get;
