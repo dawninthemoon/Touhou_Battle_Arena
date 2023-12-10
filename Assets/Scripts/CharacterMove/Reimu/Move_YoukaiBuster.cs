@@ -4,11 +4,11 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 
 namespace Moves {
-    public class Move_ReimuBasicAttack : MoveBase {
+    public class Move_YoukaiBuster : MoveBase {
         private static readonly string DamageVariableKey = "d1";
         private static readonly string PaybackAmountKey = "payback";
 
-        public Move_ReimuBasicAttack(MoveInfo info) : base(info) {
+        public Move_YoukaiBuster(MoveInfo info) : base(info) {
             InitializeExecutionArea();
         }
 

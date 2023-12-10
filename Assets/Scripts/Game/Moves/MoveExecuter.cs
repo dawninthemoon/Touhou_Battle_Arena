@@ -14,7 +14,10 @@ public class MoveExecuter : MonoBehaviour {
     private TeamColor _preferenceColor;
     
     private void Awake() {
-        _sharedData = new SharedData(_gridControl, _characterControl);
+        _sharedData = new SharedData(
+            _gridControl,
+            _characterControl
+        );
         _requestedMoveConfigs = new Dictionary<TeamColor, MoveConfig[]>();
         _preferenceColor = TeamColor.BLUE;
     }

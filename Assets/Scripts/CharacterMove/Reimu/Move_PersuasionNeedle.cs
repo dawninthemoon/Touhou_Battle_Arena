@@ -4,24 +4,31 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 
 namespace Moves {
-    public class Move_ReimuSkill3 : MoveBase {
-        public Move_ReimuSkill3(MoveInfo info) : base(info) {
+    public class Move_PersuasionNeedle : MoveBase {
+        private static readonly string DamageVariableKey = "d1";
+
+        public Move_PersuasionNeedle(MoveInfo info) : base(info) {
             InitializeExecutionArea();
         }
 
         public override void InitializeExecutionArea() {
-            ExecutionArea area = new ExecutionArea();
-            area.Add(Rowcol.Zero);
-            area.Add(new Rowcol(1, 0));
-            area.Add(new Rowcol(-1, 0));
-
-            _executionAreas.Add(area);
+            int maxLen = 6;
+            for (int directionIdx = 0; directionIdx < Rowcol.directions.Length; ++directionIdx) {
+                _executionAreas.Add(new ExecutionArea());
+                for (int len = 0; len < maxLen; ++len) {
+                    Rowcol rc = Rowcol.Zero + Rowcol.directions[directionIdx] * len;
+                    _executionAreas[directionIdx].Add(rc);
+                }
+            }
         }
 
         protected override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
+            int damage = int.Parse(Info.variables[DamageVariableKey][0]);
+
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
+                AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }

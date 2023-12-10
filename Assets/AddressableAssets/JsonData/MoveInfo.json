@@ -2,7 +2,9 @@
   {
     "MoveID": "Move_Movement",
     "CharacterKey": null,
-    "MoveName": "기초 이동",
+    "MoveNameKor": "기초 이동",
+    "MoveNameEng": 0,
+    "MoveNameJpn": 0,
     "Cost": 0,
     "Value": 15,
     "SpellSpeed": 3,
@@ -13,9 +15,11 @@
     "ButtonIndex": -1
   },
   {
-    "MoveID": "Move_ReimuBasicAttack",
+    "MoveID": "Move_YoukaiBuster",
     "CharacterKey": "Reimu",
-    "MoveName": "요괴 버스터",
+    "MoveNameKor": "「요괴 버스터」",
+    "MoveNameEng": "\"Youkai Buster\"",
+    "MoveNameJpn": "「妖怪バスター」",
     "Cost": 0,
     "Value": 15,
     "SpellSpeed": 1,
@@ -26,9 +30,11 @@
     "ButtonIndex": 0
   },
   {
-    "MoveID": "Move_ReimuSkill1",
+    "MoveID": "Move_HomingAmulet",
     "CharacterKey": "Reimu",
-    "MoveName": "호밍 애뮬릿",
+    "MoveNameKor": "「호밍 애뮬릿」",
+    "MoveNameEng": "\"Homing Amulet\"",
+    "MoveNameJpn": "「ホーミングアミュレット」",
     "Cost": 30,
     "Value": 15,
     "SpellSpeed": 1,
@@ -39,9 +45,11 @@
     "ButtonIndex": 1
   },
   {
-    "MoveID": "Move_ReimuSkill2",
+    "MoveID": "Move_PersuasionNeedle",
     "CharacterKey": "Reimu",
-    "MoveName": "퍼스웨이전 니들",
+    "MoveNameKor": "「퍼스웨이전 니들」",
+    "MoveNameEng": "\"Persuasion Needle\"",
+    "MoveNameJpn": "「パスウェイジョンニードル」",
     "Cost": 25,
     "Value": 15,
     "SpellSpeed": 1,
@@ -52,9 +60,11 @@
     "ButtonIndex": 2
   },
   {
-    "MoveID": "Move_ReimuSkill3",
+    "MoveID": "Move_DuplexBarrier",
     "CharacterKey": "Reimu",
-    "MoveName": "몽부「이중결계」",
+    "MoveNameKor": "몽부「이중결계」",
+    "MoveNameEng": "Dream Sign \"Duplex Barrier\"",
+    "MoveNameJpn": "夢符「二重結界」",
     "Cost": 20,
     "Value": 15,
     "SpellSpeed": 2,
@@ -65,9 +75,11 @@
     "ButtonIndex": 3
   },
   {
-    "MoveID": "Move_ReimuUltimate",
+    "MoveID": "Move_YinYangOrbs",
     "CharacterKey": "Reimu",
-    "MoveName": "보구「음양귀신옥」",
+    "MoveNameKor": "보구「음양귀신옥」",
+    "MoveNameEng": "Holy Relic \"Yin-Yang Kishin Orb\"",
+    "MoveNameJpn": "宝具「陰陽鬼神玉」",
     "Cost": 60,
     "Value": 15,
     "SpellSpeed": 1,

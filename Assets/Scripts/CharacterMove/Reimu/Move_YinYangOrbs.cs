@@ -4,31 +4,39 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 
 namespace Moves {
-    public class Move_ReimuSkill2 : MoveBase {
+    public class Move_YinYangOrbs : MoveBase {
         private static readonly string DamageVariableKey = "d1";
+        private static readonly string DamageVariable2Key = "d2";
 
-        public Move_ReimuSkill2(MoveInfo info) : base(info) {
+        public Move_YinYangOrbs(MoveInfo info) : base(info) {
             InitializeExecutionArea();
         }
 
         public override void InitializeExecutionArea() {
-            int maxLen = 6;
+            ExecutionArea area = new ExecutionArea();
+            area.Add(Rowcol.Zero);
             for (int directionIdx = 0; directionIdx < Rowcol.directions.Length; ++directionIdx) {
-                _executionAreas.Add(new ExecutionArea());
-                for (int len = 0; len < maxLen; ++len) {
-                    Rowcol rc = Rowcol.Zero + Rowcol.directions[directionIdx] * len;
-                    _executionAreas[directionIdx].Add(rc);
-                }
+                area.Add(Rowcol.directions[directionIdx]);
             }
+
+            _executionAreas.Add(area);
         }
 
         protected override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
-            int damage = int.Parse(Info.variables[DamageVariableKey][0]);
+            int damage1 = int.Parse(Info.variables[DamageVariableKey][0]);
+            int damage2 = int.Parse(Info.variables[DamageVariable2Key][0]);
 
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
-                AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
+                int finalDamage = rc.Equals(Rowcol.Zero) ? damage2 : damage1;
+                AttackAt(
+                    caster,
+                    target, 
+                    finalDamage, 
+                    sharedData.GridCtrl, 
+                    sharedData.CharcaterCtrl
+                );
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }
