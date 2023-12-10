@@ -55,7 +55,7 @@ public class MoveExecuter : MonoBehaviour {
             int index = move.executionAreaIndex;
             Rowcol origin = move.origin;
             _characterControl.UseEnergy(instance.Info.cost, player);
-            await instance.Execute(player, index, origin, _sharedData);
+            await instance.StartExecute(player, index, origin, _sharedData);
         }
     }
 

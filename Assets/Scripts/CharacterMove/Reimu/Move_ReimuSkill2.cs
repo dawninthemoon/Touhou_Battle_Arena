@@ -22,7 +22,7 @@ namespace Moves {
             }
         }
 
-        public override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
+        protected override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             int damage = int.Parse(Info.variables[DamageVariableKey][0]);
 

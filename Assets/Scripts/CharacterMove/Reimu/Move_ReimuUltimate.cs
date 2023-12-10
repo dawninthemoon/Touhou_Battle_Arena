@@ -7,7 +7,6 @@ namespace Moves {
     public class Move_ReimuUltimate : MoveBase {
         private static readonly string DamageVariableKey = "d1";
         private static readonly string DamageVariable2Key = "d2";
-        private static readonly string AnimTriggerKey = "at";
 
         public Move_ReimuUltimate(MoveInfo info) : base(info) {
             InitializeExecutionArea();
@@ -23,7 +22,7 @@ namespace Moves {
             _executionAreas.Add(area);
         }
 
-        public override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
+        protected override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             int damage1 = int.Parse(Info.variables[DamageVariableKey][0]);
             int damage2 = int.Parse(Info.variables[DamageVariable2Key][0]);
@@ -31,13 +30,12 @@ namespace Moves {
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 int finalDamage = rc.Equals(Rowcol.Zero) ? damage2 : damage1;
-                AttackAtWithTriggerName(
+                AttackAt(
                     caster,
                     target, 
                     finalDamage, 
                     sharedData.GridCtrl, 
-                    sharedData.CharcaterCtrl,
-                    Info.variables[AnimTriggerKey][0]
+                    sharedData.CharcaterCtrl
                 );
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);

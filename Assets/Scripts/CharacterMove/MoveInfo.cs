@@ -13,6 +13,7 @@ namespace Moves {
         public int spellSpeed;
         public string description;
         public bool isRelativeForCharacter;
+        public string animTriggerName;
         public Dictionary<string, string[]> variables;
         public int buttonIndex;
 

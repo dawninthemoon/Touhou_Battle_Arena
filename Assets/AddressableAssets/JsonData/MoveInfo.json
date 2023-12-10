@@ -8,6 +8,7 @@
     "SpellSpeed": 3,
     "Description": null,
     "IsRelativeForCharacter": true,
+    "AnimTriggerName": null,
     "Variables": null,
     "ButtonIndex": -1
   },
@@ -20,6 +21,7 @@
     "SpellSpeed": 1,
     "Description": null,
     "IsRelativeForCharacter": true,
+    "AnimTriggerName": "norAttack",
     "Variables": "d1(15):payback(20)",
     "ButtonIndex": 0
   },
@@ -32,6 +34,7 @@
     "SpellSpeed": 1,
     "Description": null,
     "IsRelativeForCharacter": false,
+    "AnimTriggerName": "throw",
     "Variables": "d1(20):d2(10)",
     "ButtonIndex": 1
   },
@@ -44,6 +47,7 @@
     "SpellSpeed": 1,
     "Description": null,
     "IsRelativeForCharacter": true,
+    "AnimTriggerName": "cast",
     "Variables": "d1(25)",
     "ButtonIndex": 2
   },
@@ -56,6 +60,7 @@
     "SpellSpeed": 2,
     "Description": null,
     "IsRelativeForCharacter": false,
+    "AnimTriggerName": "cast",
     "Variables": null,
     "ButtonIndex": 3
   },
@@ -68,7 +73,8 @@
     "SpellSpeed": 1,
     "Description": null,
     "IsRelativeForCharacter": false,
-    "Variables": "d1(30):d2(15):at(ultimate)",
+    "AnimTriggerName": "ultimate",
+    "Variables": "d1(30):d2(15)",
     "ButtonIndex": 4
   }
 ]

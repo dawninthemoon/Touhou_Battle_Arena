@@ -14,6 +14,7 @@ public class MoveDataParser {
     private static readonly string SpellSpeedColumn = "SpellSpeed";
     private static readonly string DescriptionColumn = "Description";
     private static readonly string IsRelativeColumn = "IsRelativeForCharacter";
+    private static readonly string AnimTriggerColumn = "AnimTriggerName";
     private static readonly string VariablesColumn = "Variables";
     private static readonly string ButtonIndexColumn = "ButtonIndex";
 
@@ -59,6 +60,7 @@ public class MoveDataParser {
                 spellSpeed = jsonObj.GetField(SpellSpeedColumn).intValue,
                 description = jsonObj.GetField(DescriptionColumn).stringValue,
                 isRelativeForCharacter = jsonObj.GetField(IsRelativeColumn).boolValue,
+                animTriggerName = jsonObj.GetField(AnimTriggerColumn).stringValue,
                 variables = commandsDictionary,
                 buttonIndex = jsonObj.GetField(ButtonIndexColumn).intValue
             };

@@ -39,16 +39,12 @@ public class PlayerCharacter : GridObject {
         _animator.SetTrigger(HitTriggerKey);
     }
 
-    public void SetTrigger(string triggerName) {
+    public void SetAnimationTrigger(string triggerName) {
          _animator.SetTrigger(triggerName);
     }
 
     public void OnCharacterDead() {
-        SetTrigger(DieTriggerKey);
-    }
-
-    public void OnCharacterAttack() {
-        SetTrigger(AttackTriggerKey);
+        SetAnimationTrigger(DieTriggerKey);
     }
     
     public void SetFlipX(bool flipX) {

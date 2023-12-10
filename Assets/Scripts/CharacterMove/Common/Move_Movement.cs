@@ -25,7 +25,7 @@ namespace Moves {
             _executionAreas[3].Add(new Rowcol(0, -1)); // Left
         }
 
-        public override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
+        protected override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             foreach (Rowcol rc in area.Rowcols) {
                 sharedData.CharcaterCtrl.MoveCharacter(caster, rc);

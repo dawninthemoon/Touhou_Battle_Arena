@@ -18,7 +18,7 @@ namespace Moves {
             _executionAreas.Add(area);
         }
 
-        public override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
+        protected override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;

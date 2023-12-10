@@ -126,7 +126,7 @@ namespace Network {
         public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps) {
             ++_updatedProperties;
             if ((_updatedProperties == 2) && PhotonNetwork.IsMasterClient) {
-                PhotonNetwork.LoadLevel("GameScene");
+                PhotonNetwork.LoadLevel("MultiGameScene");
             }
         }
 
