@@ -35,11 +35,14 @@ public class PlayerCharacter : GridObject {
 
     public override void ReceiveDamage(int amount) {
         base.ReceiveDamage(amount);
-        _animator.SetTrigger(HitTriggerKey);
     }
 
     public void SetAnimationTrigger(string triggerName) {
-         _animator.SetTrigger(triggerName);
+        _animator.SetTrigger(triggerName);
+    }
+
+    public void OnCharacterHit() {
+        _animator.SetTrigger(HitTriggerKey);
     }
 
     public void OnCharacterDead() {

@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 
 namespace Moves {
     public class Move_HomingAmulet : MoveBase {
+        public static int NumOfAmulets = 5;
         private static readonly string DamageVariableKey = "d1";
 
         public Move_HomingAmulet(MoveInfo info) : base(info) {
@@ -20,21 +21,28 @@ namespace Moves {
             area.Add(new Rowcol(-1, -1));
 
             _executionAreas.Add(area);
-
         }
 
         protected override async UniTask Execute(TeamColor caster, int areaIndex, Rowcol origin, SharedData sharedData) {
             ExecutionArea area = _executionAreas[areaIndex];
             int damage = int.Parse(Info.variables[DamageVariableKey][0]);
 
+            List<EffectTarget> targets = new List<EffectTarget>();
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
+                if (sharedData.GridCtrl.IsValidRowcol(target)) {
+                    GridObject obj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target);
+                    Vector3 pos = sharedData.GridCtrl.RowcolToPoint(target);
+                    targets.Add(new EffectTarget(obj as PlayerCharacter, pos));
+                }
                 AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }
 
-            await UniTask.Delay(System.TimeSpan.FromSeconds(0.5));
+            PlayerCharacter p = sharedData.CharcaterCtrl.GetCharacterByColor(caster);
+            
+            await sharedData.EffectCtrl.StartExecuteEffect(p, targets.ToArray(), sharedData);
 
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;

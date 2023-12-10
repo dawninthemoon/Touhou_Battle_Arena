@@ -1,7 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
+
+public struct EffectTarget {
+    public PlayerCharacter obj;
+    public Vector3 pos;
+    public EffectTarget(PlayerCharacter obj, Vector3 pos) {
+        this.obj = obj;
+        this.pos = pos;
+    }
+}
 
 public abstract class EffectBase : ScriptableObject {
-    public abstract void Execute(GridObject[] targets, SharedData sharedData);
+    public abstract UniTask Execute(PlayerCharacter caster, EffectTarget[] targets, SharedData sharedData);
 }

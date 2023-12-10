@@ -8,6 +8,7 @@ public class MoveExecuter : MonoBehaviour {
     [SerializeField] private MoveDataContainer _container;
     [SerializeField] private GridControl _gridControl;
     [SerializeField] private CharacterControl _characterControl;
+    [SerializeField] private EffectControl _effectControl;
     [SerializeField] private MoveButtonControl _moveButtonControl;
     private SharedData _sharedData;
     private Dictionary<TeamColor, MoveConfig[]> _requestedMoveConfigs;
@@ -16,7 +17,8 @@ public class MoveExecuter : MonoBehaviour {
     private void Awake() {
         _sharedData = new SharedData(
             _gridControl,
-            _characterControl
+            _characterControl,
+            _effectControl
         );
         _requestedMoveConfigs = new Dictionary<TeamColor, MoveConfig[]>();
         _preferenceColor = TeamColor.BLUE;
