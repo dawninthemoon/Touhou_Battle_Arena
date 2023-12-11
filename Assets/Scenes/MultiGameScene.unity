@@ -2910,6 +2910,7 @@ MonoBehaviour:
   _container: {fileID: 1191495345}
   _gridControl: {fileID: 1897323670}
   _characterControl: {fileID: 1380223867}
+  _effectControl: {fileID: 2022656762}
   _moveButtonControl: {fileID: 1673060579}
 --- !u!1 &1897323669
 GameObject:
@@ -3407,6 +3408,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 711d5deba9d534a468127dfbe7276538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2022656761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2022656763}
+  - component: {fileID: 2022656762}
+  m_Layer: 0
+  m_Name: EffectControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2022656762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022656761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c4e98d238f212447aa51fe500fc910c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2022656763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2022656761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2071774510
 GameObject:
   m_ObjectHideFlags: 0
@@ -3483,6 +3528,7 @@ SceneRoots:
   - {fileID: 846169998}
   - {fileID: 1897323671}
   - {fileID: 1380223866}
+  - {fileID: 2022656763}
   - {fileID: 1569922900}
   - {fileID: 1673060578}
   - {fileID: 229576133}

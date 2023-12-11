@@ -4,8 +4,6 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 
 public class EffectControl : MonoBehaviour {
-    [SerializeField, Tooltip("Temp Option")]
-    private Effect_HomingAmulet _temp;
     private static readonly string EffectExecuterLabel = "EffectExecuter";
     private Dictionary<string, EffectExecuter> _executerDictionary;
 
