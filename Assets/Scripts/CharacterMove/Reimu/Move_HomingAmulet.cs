@@ -7,9 +7,11 @@ namespace Moves {
     public class Move_HomingAmulet : MoveBase {
         public static int NumOfAmulets = 5;
         private static readonly string DamageVariableKey = "d1";
+        private List<EffectTarget> _cachedTargetsList;
 
         public Move_HomingAmulet(MoveInfo info) : base(info) {
             InitializeExecutionArea();
+            _cachedTargetsList = new List<EffectTarget>();
         }
 
         public override void InitializeExecutionArea() {
@@ -27,13 +29,12 @@ namespace Moves {
             ExecutionArea area = _executionAreas[areaIndex];
             int damage = int.Parse(Info.variables[DamageVariableKey][0]);
 
-            List<EffectTarget> targets = new List<EffectTarget>();
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 if (sharedData.GridCtrl.IsValidRowcol(target)) {
                     GridObject obj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target);
                     Vector3 pos = sharedData.GridCtrl.RowcolToPoint(target);
-                    targets.Add(new EffectTarget(obj as PlayerCharacter, pos));
+                    _cachedTargetsList.Add(new EffectTarget(obj as PlayerCharacter, pos));
                 }
                 AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
                 sharedData.GridCtrl.HighlightTile(target);
@@ -42,7 +43,7 @@ namespace Moves {
 
             PlayerCharacter p = sharedData.CharcaterCtrl.GetCharacterByColor(caster);
             
-            await sharedData.EffectCtrl.StartExecuteEffect(p, targets.ToArray(), sharedData);
+            await sharedData.EffectCtrl.StartExecuteEffect(p, _cachedTargetsList, sharedData);
 
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;

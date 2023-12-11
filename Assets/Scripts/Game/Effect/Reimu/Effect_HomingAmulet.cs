@@ -28,9 +28,9 @@ public class Effect_HomingAmulet : EffectBase {
         _amulets = new AmuletConfig[Move_HomingAmulet.NumOfAmulets];
     }
 
-    public override async UniTask Execute(PlayerCharacter caster, EffectTarget[] targets, SharedData sharedData) {
+    public override async UniTask Execute(PlayerCharacter caster, List<EffectTarget> targets, SharedData sharedData) {
         Vector3 origin = caster.transform.position;
-        _numOfAmulets = targets.Length;
+        _numOfAmulets = targets.Count;
         for (int i = 0; i < _numOfAmulets; ++i) {
             GameObject amuletObj = Instantiate(_amuletPrefab, origin, Quaternion.identity);
 

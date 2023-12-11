@@ -13,5 +13,5 @@ public struct EffectTarget {
 }
 
 public abstract class EffectBase : ScriptableObject {
-    public abstract UniTask Execute(PlayerCharacter caster, EffectTarget[] targets, SharedData sharedData);
+    public abstract UniTask Execute(PlayerCharacter caster, List<EffectTarget> targets, SharedData sharedData);
 }

@@ -11,7 +11,7 @@ public class EffectControl : MonoBehaviour {
         _temp.Initialize();
     }
 
-    public async UniTask StartExecuteEffect(PlayerCharacter caster, EffectTarget[] targets, SharedData sharedData) {
+    public async UniTask StartExecuteEffect(PlayerCharacter caster, List<EffectTarget> targets, SharedData sharedData) {
         await _temp.Execute(caster, targets, sharedData);
     }
 }
