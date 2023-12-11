@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3c348e2d6303c479f3322feeb9588e, type: 3}
-  m_Name: Effect_YoukaiBuster
+  m_Script: {fileID: 11500000, guid: ec6f77dde1ed8ac428dccc61f9fec668, type: 3}
+  m_Name: Effect_YinYangOrbs
   m_EditorClassIdentifier: 
-  _slashEffect: {fileID: 1475154061869038908, guid: 1f3fdd2c01671154fa5762faa0970557, type: 3}

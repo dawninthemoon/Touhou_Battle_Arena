@@ -44,13 +44,13 @@ namespace Moves {
 
             _cachedEffectConfig.AreaIndex = areaIndex;
 
-            Rowcol effectTargetCenter = origin + area.First();
-            EffectTarget effectTarget = new EffectTarget(null, sharedData.GridCtrl.RowcolToPoint(effectTargetCenter));
-            _cachedEffectConfig.Add(effectTarget);
-
             bool enemyHit = false;
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
+
+                PlayerCharacter obj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target) as PlayerCharacter;
+                EffectTarget effectTarget = new EffectTarget(obj, sharedData.GridCtrl.RowcolToPoint(target));
+                _cachedEffectConfig.Add(effectTarget);
 
                 bool hit = AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
                 if (hit) {

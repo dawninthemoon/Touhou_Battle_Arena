@@ -7,7 +7,7 @@ public struct Rowcol {
     }
 
     // clockwise
-    public static readonly Rowcol[] directions = new Rowcol[] {
+    public static readonly Rowcol[] Directions = new Rowcol[] {
         new Rowcol(-1, 0),
         new Rowcol(-1, 1),
         new Rowcol(0, 1),

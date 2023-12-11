@@ -30,6 +30,7 @@ public class EffectConfig {
     }
 
     public void Reset() {
+        AreaIndex = 0;
         Targets.Clear();
     }
 }

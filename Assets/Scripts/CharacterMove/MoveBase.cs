@@ -34,7 +34,7 @@ namespace Moves {
             bool enemyHit = false;
 
             GridObject obj = gridControl.GetObject(TeamColor.NONE, target);
-            GridObject obj2 = gridControl.GetObject(ExTeamColor.GetOpponentColor(color), target);
+            GridObject obj2 = gridControl.GetObject(color.GetOpponent(), target);
 
             obj?.ReceiveDamage(damage);
             if (obj2 != null) {

@@ -7,16 +7,18 @@ namespace Moves {
     public class Move_YinYangOrbs : MoveBase {
         private static readonly string DamageVariableKey = "d1";
         private static readonly string DamageVariable2Key = "d2";
+        private EffectConfig _cachedEffectConfig;
 
         public Move_YinYangOrbs(MoveInfo info) : base(info) {
             InitializeExecutionArea();
+            _cachedEffectConfig = new EffectConfig();
         }
 
         public override void InitializeExecutionArea() {
             ExecutionArea area = new ExecutionArea();
             area.Add(Rowcol.Zero);
-            for (int directionIdx = 0; directionIdx < Rowcol.directions.Length; ++directionIdx) {
-                area.Add(Rowcol.directions[directionIdx]);
+            for (int directionIdx = 0; directionIdx < Rowcol.Directions.Length; ++directionIdx) {
+                area.Add(Rowcol.Directions[directionIdx]);
             }
 
             _executionAreas.Add(area);
@@ -30,18 +32,25 @@ namespace Moves {
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 int finalDamage = rc.Equals(Rowcol.Zero) ? damage2 : damage1;
-                AttackAt(
+                bool hit = AttackAt(
                     caster,
                     target, 
                     finalDamage, 
                     sharedData.GridCtrl, 
                     sharedData.CharcaterCtrl
                 );
+                if (hit) {
+                    PlayerCharacter obj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target) as PlayerCharacter;
+                    EffectTarget effectTarget = new EffectTarget(obj, sharedData.GridCtrl.RowcolToPoint(target));
+                    _cachedEffectConfig.Add(effectTarget);
+
+                }
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }
 
-            await UniTask.Delay(System.TimeSpan.FromSeconds(0.5));
+            PlayerCharacter p = sharedData.CharcaterCtrl.GetCharacterByColor(caster);
+            await sharedData.EffectCtrl.StartExecuteEffect(_effectName, p, _cachedEffectConfig, sharedData);
 
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;

@@ -6,17 +6,19 @@ using Cysharp.Threading.Tasks;
 namespace Moves {
     public class Move_PersuasionNeedle : MoveBase {
         private static readonly string DamageVariableKey = "d1";
+        private EffectConfig _cachedEffectConfig;
 
         public Move_PersuasionNeedle(MoveInfo info) : base(info) {
             InitializeExecutionArea();
+            _cachedEffectConfig = new EffectConfig();
         }
 
         public override void InitializeExecutionArea() {
             int maxLen = 6;
-            for (int directionIdx = 0; directionIdx < Rowcol.directions.Length; ++directionIdx) {
+            for (int directionIdx = 0; directionIdx < Rowcol.Directions.Length; ++directionIdx) {
                 _executionAreas.Add(new ExecutionArea());
                 for (int len = 0; len < maxLen; ++len) {
-                    Rowcol rc = Rowcol.Zero + Rowcol.directions[directionIdx] * len;
+                    Rowcol rc = Rowcol.Zero + Rowcol.Directions[directionIdx] * len;
                     _executionAreas[directionIdx].Add(rc);
                 }
             }
@@ -26,20 +28,44 @@ namespace Moves {
             ExecutionArea area = _executionAreas[areaIndex];
             int damage = int.Parse(Info.variables[DamageVariableKey][0]);
 
+            bool hit = false;
+            Rowcol target = Rowcol.Zero;
+            _cachedEffectConfig.AreaIndex = areaIndex;
             foreach (Rowcol rc in area.Rowcols) {
-                Rowcol target = origin + rc;
-                AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
+                target = origin + rc;
+
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
+
+                if (!hit) {
+                    if (AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl)) {
+                        hit = true;
+                        // 수정 필요
+                        PlayerCharacter targetObj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target) as PlayerCharacter;
+                        Vector3 pos = sharedData.GridCtrl.RowcolToPoint(target);
+                        EffectTarget effectTarget = new EffectTarget(targetObj, pos);
+                        _cachedEffectConfig.Add(effectTarget);
+
+                        break;
+                    } 
+                }
             }
 
-            await UniTask.Delay(System.TimeSpan.FromSeconds(0.5));
+            if (!hit) {
+                Vector3 pos = sharedData.GridCtrl.RowcolToPoint(target);
+                EffectTarget effectTarget = new EffectTarget(null, pos);
+                _cachedEffectConfig.Add(effectTarget);
+            }
+
+            PlayerCharacter p = sharedData.CharcaterCtrl.GetCharacterByColor(caster);
+            await sharedData.EffectCtrl.StartExecuteEffect(_effectName, p, _cachedEffectConfig, sharedData);
 
             foreach (Rowcol rc in area.Rowcols) {
-                Rowcol target = origin + rc;
+                target = origin + rc;
                 sharedData.GridCtrl.RemoveHighlightTile(target);
                 sharedData.GridCtrl.RemoveHighlightObjectExcept(caster, target);
             }
+            _cachedEffectConfig.Reset();
         }
     }
 }
