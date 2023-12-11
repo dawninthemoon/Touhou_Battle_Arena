@@ -25,16 +25,14 @@ public class Effect_YoukaiBuster : EffectExecuter {
         var effect = Instantiate(_slashEffect, center, _effectRotations[effectConfig.AreaIndex]);
         effect.Initialize(() => isSlashEnd = true);
 
-        await UniTask.WaitUntil(() => isSlashEnd);
-        
-        double waitTime = 0.0;
         for (int i = 0; i < effectConfig.Targets.Count; ++i) {
             if (effectConfig.Targets[i].obj != null) {
                 effectConfig.Targets[i].obj.OnCharacterHit();
-                waitTime = 0.1;
             }
         }
-        await UniTask.Delay(System.TimeSpan.FromSeconds(waitTime));
+
+        await UniTask.WaitUntil(() => isSlashEnd);
+        
 
         isSlashEnd = false;
     }
