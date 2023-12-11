@@ -7,11 +7,11 @@ namespace Moves {
     public class Move_HomingAmulet : MoveBase {
         public static int NumOfAmulets = 5;
         private static readonly string DamageVariableKey = "d1";
-        private List<EffectTarget> _cachedTargetsList;
+        private EffectConfig _cachedEffectConfig;
 
         public Move_HomingAmulet(MoveInfo info) : base(info) {
             InitializeExecutionArea();
-            _cachedTargetsList = new List<EffectTarget>();
+            _cachedEffectConfig = new EffectConfig();
         }
 
         public override void InitializeExecutionArea() {
@@ -29,27 +29,30 @@ namespace Moves {
             ExecutionArea area = _executionAreas[areaIndex];
             int damage = int.Parse(Info.variables[DamageVariableKey][0]);
 
+            _cachedEffectConfig.AreaIndex = areaIndex;
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 if (sharedData.GridCtrl.IsValidRowcol(target)) {
                     GridObject obj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target);
                     Vector3 pos = sharedData.GridCtrl.RowcolToPoint(target);
-                    _cachedTargetsList.Add(new EffectTarget(obj as PlayerCharacter, pos));
+                    _cachedEffectConfig.Add(new EffectTarget(obj as PlayerCharacter, pos));
                 }
+
                 AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl);
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }
 
             PlayerCharacter p = sharedData.CharcaterCtrl.GetCharacterByColor(caster);
-            
-            await sharedData.EffectCtrl.StartExecuteEffect(p, _cachedTargetsList, sharedData);
+            await sharedData.EffectCtrl.StartExecuteEffect(_effectName, p, _cachedEffectConfig, sharedData);
 
             foreach (Rowcol rc in area.Rowcols) {
                 Rowcol target = origin + rc;
                 sharedData.GridCtrl.RemoveHighlightTile(target);
                 sharedData.GridCtrl.RemoveHighlightObjectExcept(caster, target);
             }
+
+            _cachedEffectConfig.Reset();
         }
     }
 }

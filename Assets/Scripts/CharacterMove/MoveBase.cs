@@ -6,12 +6,14 @@ using Cysharp.Threading.Tasks;
 namespace Moves {
     public abstract class MoveBase {
         protected List<ExecutionArea> _executionAreas;
+        protected string _effectName;
         public MoveInfo Info {
             get;
             private set;
         }
         public MoveBase(MoveInfo info) {
             Info = info;
+            _effectName = Info.moveID.Replace("Move", "Effect");
             _executionAreas = new List<ExecutionArea>();
         }
         public abstract void InitializeExecutionArea();

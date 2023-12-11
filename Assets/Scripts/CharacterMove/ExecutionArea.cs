@@ -14,8 +14,8 @@ namespace Moves {
             Rowcols = new HashSet<Rowcol>();
         }
 
-        public Rowcol Single() {
-            return Rowcols.Single();
+        public Rowcol First() {
+            return Rowcols.First();
         }
 
         public void Add(Rowcol rowcol) {

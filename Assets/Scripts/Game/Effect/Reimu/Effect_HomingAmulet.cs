@@ -6,7 +6,7 @@ using Moves;
 using RieslingUtils;
 
 [CreateAssetMenu(fileName = "Effect_HomingAmulet", menuName = "Effects/Reimu/HomingAmulet")]
-public class Effect_HomingAmulet : EffectBase {
+public class Effect_HomingAmulet : EffectExecuter {
     private struct AmuletConfig {
         public GameObject obj;
         public Vector3 start;
@@ -24,22 +24,22 @@ public class Effect_HomingAmulet : EffectBase {
     private AmuletConfig[] _amulets;
     private int _numOfAmulets;
 
-    public void Initialize() {
+    public override void Initialize() {
         _amulets = new AmuletConfig[Move_HomingAmulet.NumOfAmulets];
     }
 
-    public override async UniTask Execute(PlayerCharacter caster, List<EffectTarget> targets, SharedData sharedData) {
+    public override async UniTask Execute(PlayerCharacter caster, EffectConfig effectConfig, SharedData sharedData) {
         Vector3 origin = caster.transform.position;
-        _numOfAmulets = targets.Count;
+        _numOfAmulets = effectConfig.Targets.Count;
         for (int i = 0; i < _numOfAmulets; ++i) {
             GameObject amuletObj = Instantiate(_amuletPrefab, origin, Quaternion.identity);
 
             AmuletConfig config = new AmuletConfig() {
                 obj = amuletObj,
                 start = origin,
-                target = targets[i],
+                target = effectConfig.Targets[i],
                 controlPoint1 = SetBezierControlPoint(origin),
-                controlPoint2 = SetBezierControlPoint(targets[i].pos),
+                controlPoint2 = SetBezierControlPoint(effectConfig.Targets[i].pos),
                 speed = _amuletSpeed
             };
             _amulets[i] = config;

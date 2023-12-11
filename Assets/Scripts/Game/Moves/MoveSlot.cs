@@ -57,7 +57,7 @@ public class MoveSlot : MonoBehaviour {
         }
 
         MoveBase instance = _container.GetMoveInstance(moveID);
-        Rowcol destination = GetCharacterRowcol() + instance.GetExecutionArea()[areaIndex].Single();
+        Rowcol destination = GetCharacterRowcol() + instance.GetExecutionArea()[areaIndex].First();
 
         if (!_gridControl.CanMoveTo(destination)) {
             return;
@@ -91,7 +91,7 @@ public class MoveSlot : MonoBehaviour {
         var moveAreas = _container.GetMoveInstance(Move_Movement.MoveID).GetExecutionArea();
         for (int i = 0; i < _currentSlotTop; ++i) {
             if (_requestedMoves[i].moveID.Equals(Move_Movement.MoveID)) {
-               rc += moveAreas[_requestedMoves[i].executionAreaIndex].Single();
+               rc += moveAreas[_requestedMoves[i].executionAreaIndex].First();
             }
         }
         return rc + _characterControl.MyCharacterRowcol;
