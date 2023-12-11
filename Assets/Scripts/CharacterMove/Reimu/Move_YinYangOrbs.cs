@@ -39,12 +39,10 @@ namespace Moves {
                     sharedData.GridCtrl, 
                     sharedData.CharcaterCtrl
                 );
-                if (hit) {
-                    PlayerCharacter obj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target) as PlayerCharacter;
-                    EffectTarget effectTarget = new EffectTarget(obj, sharedData.GridCtrl.RowcolToPoint(target));
-                    _cachedEffectConfig.Add(effectTarget);
-
-                }
+                PlayerCharacter obj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target) as PlayerCharacter;
+                EffectTarget effectTarget = new EffectTarget(obj, sharedData.GridCtrl.RowcolToPoint(target));
+                _cachedEffectConfig.Add(effectTarget);
+                
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }

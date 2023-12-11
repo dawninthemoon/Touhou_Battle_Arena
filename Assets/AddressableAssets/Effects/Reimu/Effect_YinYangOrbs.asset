@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec6f77dde1ed8ac428dccc61f9fec668, type: 3}
   m_Name: Effect_YinYangOrbs
   m_EditorClassIdentifier: 
+  _yinYangOrbPrefab: {fileID: 1611477222847533872, guid: b19bd830d8d2b1746b7c18fbdb9c48c5, type: 3}

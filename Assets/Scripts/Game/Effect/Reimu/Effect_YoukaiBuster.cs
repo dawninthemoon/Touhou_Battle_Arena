@@ -29,8 +29,8 @@ public class Effect_YoukaiBuster : EffectExecuter {
         
         double waitTime = 0.0;
         for (int i = 0; i < effectConfig.Targets.Count; ++i) {
-            if (effectConfig.Targets[0].obj) {
-                effectConfig.Targets[0].obj.OnCharacterHit();
+            if (effectConfig.Targets[i].obj != null) {
+                effectConfig.Targets[i].obj.OnCharacterHit();
                 waitTime = 0.1;
             }
         }

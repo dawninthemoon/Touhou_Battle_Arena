@@ -28,7 +28,6 @@ namespace Moves {
             ExecutionArea area = _executionAreas[areaIndex];
             int damage = int.Parse(Info.variables[DamageVariableKey][0]);
 
-            bool hit = false;
             Rowcol target = Rowcol.Zero;
             _cachedEffectConfig.AreaIndex = areaIndex;
             foreach (Rowcol rc in area.Rowcols) {
@@ -37,25 +36,16 @@ namespace Moves {
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
 
-                if (!hit) {
-                    if (AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl)) {
-                        hit = true;
-                        // 수정 필요
-                        PlayerCharacter targetObj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target) as PlayerCharacter;
-                        Vector3 pos = sharedData.GridCtrl.RowcolToPoint(target);
-                        EffectTarget effectTarget = new EffectTarget(targetObj, pos);
-                        _cachedEffectConfig.Add(effectTarget);
-
-                        break;
-                    } 
-                }
+                if (AttackAt(caster, target, damage, sharedData.GridCtrl, sharedData.CharcaterCtrl)) {
+                    break;
+                } 
             }
 
-            if (!hit) {
-                Vector3 pos = sharedData.GridCtrl.RowcolToPoint(target);
-                EffectTarget effectTarget = new EffectTarget(null, pos);
-                _cachedEffectConfig.Add(effectTarget);
-            }
+            Rowcol finalTarget = target;
+            finalTarget.Clamp(6, 6);
+            Vector3 pos = sharedData.GridCtrl.RowcolToPoint(target);
+            EffectTarget effectTarget = new EffectTarget(null, pos);
+            _cachedEffectConfig.Add(effectTarget);
 
             PlayerCharacter p = sharedData.CharcaterCtrl.GetCharacterByColor(caster);
             await sharedData.EffectCtrl.StartExecuteEffect(_effectName, p, _cachedEffectConfig, sharedData);

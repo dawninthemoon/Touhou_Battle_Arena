@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using Test;
 
 [CreateAssetMenu(fileName = "Effect_YinYangOrbs", menuName = "Effects/Reimu/YinYangOrbs")]
 public class Effect_YinYangOrbs : EffectExecuter {
+    [SerializeField] private DisposableEffect _yinYangOrbPrefab;
     private Camera _mainCamera;
     public override void Initialize() {
         _mainCamera = Camera.main;
@@ -23,17 +25,20 @@ public class Effect_YinYangOrbs : EffectExecuter {
             t += Time.deltaTime * 4f;
         }
 
-        if (effectConfig.Targets.Count > 0) {
-            if (effectConfig.Targets[0].obj) {
-                effectConfig.Targets[0].obj.OnCharacterHit();
-                await UniTask.Delay(System.TimeSpan.FromSeconds(0.1));
+
+        bool effectEnd = false;
+        var orb = Instantiate(_yinYangOrbPrefab, effectConfig.Targets[0].pos, Quaternion.identity);
+        orb.Initialize(() => effectEnd = true);
+
+        for (int i = 0; i < effectConfig.Targets.Count; ++i) {
+            if (effectConfig.Targets[i].obj != null) {
+                effectConfig.Targets[i].obj.OnCharacterHit();
             }
         }
-        
-        await UniTask.Delay(System.TimeSpan.FromSeconds(0.5f));
-        
 
-        t = 0;
+        await UniTask.WaitUntil(() => effectEnd);
+
+        t = 0f;
         while (t < 1f) {
             _mainCamera.backgroundColor = Color.Lerp(Color.black, color, t);
             

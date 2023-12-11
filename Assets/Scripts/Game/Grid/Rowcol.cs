@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public struct Rowcol {
     public int row;
     public int column;
@@ -33,6 +35,11 @@ public struct Rowcol {
 
     public static Rowcol operator*(int scalar, Rowcol rc)
         => rc * scalar;
+
+    public void Clamp(int clampRow, int clampCol) {
+        row = Mathf.Clamp(row, 0, clampRow);
+        column = Mathf.Clamp(column, 0, clampCol);
+    }
 
     public bool Equals(Rowcol other) {
         return (row == other.row) && (column == other.column);
