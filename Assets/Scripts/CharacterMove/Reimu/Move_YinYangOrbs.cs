@@ -42,7 +42,7 @@ namespace Moves {
                 PlayerCharacter obj = sharedData.GridCtrl.GetObject(caster.GetOpponent(), target) as PlayerCharacter;
                 EffectTarget effectTarget = new EffectTarget(obj, sharedData.GridCtrl.RowcolToPoint(target));
                 _cachedEffectConfig.Add(effectTarget);
-                
+
                 sharedData.GridCtrl.HighlightTile(target);
                 sharedData.GridCtrl.HighlightObjectExcept(caster, target);
             }
@@ -55,6 +55,7 @@ namespace Moves {
                 sharedData.GridCtrl.RemoveHighlightTile(target);
                 sharedData.GridCtrl.RemoveHighlightObjectExcept(caster, target);
             }
+            _cachedEffectConfig.Reset();
         }
     }
 }
