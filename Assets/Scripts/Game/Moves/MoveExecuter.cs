@@ -10,6 +10,7 @@ public class MoveExecuter : MonoBehaviour {
     [SerializeField] private CharacterControl _characterControl;
     [SerializeField] private EffectControl _effectControl;
     [SerializeField] private MoveButtonControl _moveButtonControl;
+    [SerializeField] private TurnControl _turnControl;
     private SharedData _sharedData;
     private Dictionary<TeamColor, MoveConfig[]> _requestedMoveConfigs;
     private TeamColor _preferenceColor;
@@ -22,6 +23,10 @@ public class MoveExecuter : MonoBehaviour {
         );
         _requestedMoveConfigs = new Dictionary<TeamColor, MoveConfig[]>();
         _preferenceColor = TeamColor.BLUE;
+    }
+
+    private void Start() {
+        _turnControl.TurnEndEvent.AddListener(OnTurnEnd);
     }
 
     public void ExecuteAll(TeamColor player, MoveConfig[] moves) {
@@ -43,13 +48,7 @@ public class MoveExecuter : MonoBehaviour {
             await ExecuteMove(ExTeamColor.GetOpponentColor(player), phase);
         }
 
-        _preferenceColor = ExTeamColor.GetOpponentColor(_preferenceColor);
-        _requestedMoveConfigs.Clear();
-        _moveButtonControl.SetButtonInteraction(true);
-
-        // TODO: 수정
-        _characterControl.GainEnergy(20, TeamColor.BLUE);
-        _characterControl.GainEnergy(20, TeamColor.RED);
+        _turnControl.FinishTurn();
     }
 
     private async UniTask ExecuteMove(TeamColor player, int phase) {
@@ -78,5 +77,16 @@ public class MoveExecuter : MonoBehaviour {
             return TeamColor.RED;
         }
         return TeamColor.NONE;
+    }
+
+    private void OnTurnEnd() {
+
+        _preferenceColor = ExTeamColor.GetOpponentColor(_preferenceColor);
+        _requestedMoveConfigs.Clear();
+        _moveButtonControl.SetButtonInteraction(true);
+
+        // TODO: 수정
+        _characterControl.GainEnergy(20, TeamColor.BLUE);
+        _characterControl.GainEnergy(20, TeamColor.RED);
     }
 }
