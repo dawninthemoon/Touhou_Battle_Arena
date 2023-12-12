@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class TurnControl : MonoBehaviour {
+    [SerializeField] private MoveButtonControl _moveButtonControl;
     private int _currentTurn;
     public UnityEvent TurnEndEvent {
         get;
@@ -11,15 +12,13 @@ public class TurnControl : MonoBehaviour {
     }
 
     private void Awake() {
-        InitializeData();
-    }
-
-    private void InitializeData() {
-        TurnEndEvent = new UnityEvent();
         _currentTurn = 1;
+        TurnEndEvent = new UnityEvent();
+        TurnEndEvent.AddListener(OnTurnEnd);
     }
 
-    public void FinishTurn() {
-        TurnEndEvent.Invoke();
+    private void OnTurnEnd() {
+        ++_currentTurn;
+        _moveButtonControl.SetButtonInteraction(true);
     }
 }

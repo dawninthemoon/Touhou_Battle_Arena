@@ -52,6 +52,8 @@ public class Effect_HomingAmulet : EffectExecuter {
             await UniTask.Yield();
             elpasedTime += Time.deltaTime * _amuletSpeed;
         }
+
+        await UniTask.Delay(System.TimeSpan.FromSeconds(0.1));
     }
 
     private void Progress(float elapsedTime) {

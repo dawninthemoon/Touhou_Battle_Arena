@@ -9,7 +9,6 @@ public class MoveExecuter : MonoBehaviour {
     [SerializeField] private GridControl _gridControl;
     [SerializeField] private CharacterControl _characterControl;
     [SerializeField] private EffectControl _effectControl;
-    [SerializeField] private MoveButtonControl _moveButtonControl;
     [SerializeField] private TurnControl _turnControl;
     private SharedData _sharedData;
     private Dictionary<TeamColor, MoveConfig[]> _requestedMoveConfigs;
@@ -48,7 +47,7 @@ public class MoveExecuter : MonoBehaviour {
             await ExecuteMove(ExTeamColor.GetOpponentColor(player), phase);
         }
 
-        _turnControl.FinishTurn();
+        _turnControl.TurnEndEvent.Invoke();
     }
 
     private async UniTask ExecuteMove(TeamColor player, int phase) {
@@ -80,10 +79,8 @@ public class MoveExecuter : MonoBehaviour {
     }
 
     private void OnTurnEnd() {
-
         _preferenceColor = ExTeamColor.GetOpponentColor(_preferenceColor);
         _requestedMoveConfigs.Clear();
-        _moveButtonControl.SetButtonInteraction(true);
 
         // TODO: 수정
         _characterControl.GainEnergy(20, TeamColor.BLUE);

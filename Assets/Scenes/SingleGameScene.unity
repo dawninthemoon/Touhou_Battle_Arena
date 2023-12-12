@@ -1611,6 +1611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09299a071bc651b4095dfedc83d8d9b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveButtonControl: {fileID: 138485948}
 --- !u!1 &1008612884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1724,7 +1725,6 @@ MonoBehaviour:
   _gridControl: {fileID: 933661289}
   _characterControl: {fileID: 361057192}
   _effectControl: {fileID: 715507129}
-  _moveButtonControl: {fileID: 138485948}
   _turnControl: {fileID: 975008997}
 --- !u!1 &1105398720
 GameObject:
