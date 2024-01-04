@@ -2241,10 +2241,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f03a7719ea154540b93fef8488b46ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _myHpBar: {fileID: 0}
-  _myEnergyBar: {fileID: 0}
-  _opponentHpBar: {fileID: 0}
-  _opponentEnergyBar: {fileID: 0}
+  _myHpBar: {fileID: 383951844}
+  _myEnergyBar: {fileID: 874971355}
+  _opponentHpBar: {fileID: 483974471}
+  _opponentEnergyBar: {fileID: 531005666}
 --- !u!1 &1460004685
 GameObject:
   m_ObjectHideFlags: 0
